@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "real-env"
+version = "0.1.0"
+description = "A unified and customizable real-world environment for robotics research"
+authors = [
+    {name = "Yihuai Gao", email = "yihuai@stanford.edu"},
+    {name = "Jinyun Liu", email = "jeffliu0@stanford.edu"}
+]
+dependencies = [
+
+]
+
+
+[project.scripts]
+ur5 = "real_env.controllers.ur5_cartesian:run_ur5_cartesian"
+arx5 = "real_env.controllers.arx5_cartesian:run_arx5_cartesian"
+ur5_joint = "real_env.controllers.ur5_joint:run_ur5_joint"
+wsg50 = "real_env.controllers.wsg50:run_wsg50"
+webcam = "real_env.peripherals.webcam:run_webcam"
+gopro = "real_env.peripherals.webcam:run_gopro"
+iphone = "real_env.peripherals.iphone:run_iphone"
+umi_ur5 = "real_env.tasks.umi_ur5_task:run_umi_ur5_task"
+umi_arx5 = "real_env.tasks.umi_arx5_task:run_umi_arx5_task"
+iphumi_ur5 = "real_env.tasks.iphumi_ur5_task:run_iphumi_ur5_task"
+iphumi_arx5 = "real_env.tasks.iphumi_arx5_task:run_iphumi_arx5_task"
+umi_ur5_original = "real_env.tasks.umi_ur5_task:run_umi_ur5_original_task"
+iterative_casting = "real_env.tasks.iterative_casting:run_iterative_casting"
+
+[tool.setuptools.packages.find]
+include = ["real_env**"]

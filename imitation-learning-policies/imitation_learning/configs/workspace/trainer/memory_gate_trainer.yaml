@@ -1,0 +1,31 @@
+defaults:
+  - base_trainer
+  - _self_
+
+_target_: imitation_learning.trainers.memory_gate_trainer.MemoryGateTrainer
+
+checkpoint_manager:
+  sort_key: "train/mean_loss"
+  keep_min: True
+
+
+regular_keywords: [] # All parameters are regular by default. 
+# Only specify those covered by finetune_keywords if you want to use regular learning rate for them.
+
+skip_saving_keywords: [] # All parameters are saved by default. Only specify those you want to skip saving pretrained models
+keep_saving_keywords: [] # Keep saving some parameters subsets although if they are covered by skip_saving_keywords
+
+val_every: 1
+num_epochs: 21
+checkpoint_every: 1
+
+optimizer_partial: 
+  lr: 1.0e-4
+
+lr_warmup_steps: 1000
+mixed_precision: null
+
+finetune_keywords:
+  - image_encoder
+
+error_ratio_threshold: 10.0

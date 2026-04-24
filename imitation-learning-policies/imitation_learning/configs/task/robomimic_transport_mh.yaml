@@ -1,0 +1,9 @@
+defaults:
+  - robomimic_transport_ph
+  - _self_
+
+workspace:
+  train_dataset:
+    # Frame num stats: avg:  652.0, std:  201.8, max: 2614, min: 392
+    name: robomimic_transport_mh
+    robot_num: 1

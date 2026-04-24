@@ -1,0 +1,15 @@
+_target_: env.modules.scenes.table_only.TableOnly
+
+name: table_only
+
+mjcf_path: env/assets/scenes/table_only.xml
+
+cameras:
+  # frontview: [256, 256]
+  third_person_camera: [256, 256]
+  
+
+table_center_xyz:
+  - 0.1
+  - 0.0
+  - 0.2

@@ -1,0 +1,16 @@
+defaults:
+  - mikasa_remember_color_3
+  - _self_
+
+
+workspace:
+  train_dataset:
+    traj_interval_min: 4 # To make the policy more reactive: only execute 4 actions
+    traj_interval_max: 4
+    name: TakeItBack-v0
+
+  model:
+    denoising_network_partial:
+      max_history_len: 45
+    action_length: 4
+    history_action_num_per_chunk: 4

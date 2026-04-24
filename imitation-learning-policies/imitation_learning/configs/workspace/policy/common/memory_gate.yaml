@@ -1,0 +1,25 @@
+_target_: imitation_learning.models.common.memory_gate.MemoryGate
+image_encoder:
+  # _target_: imitation_learning.models.encoders.image_encoders.TimmImageEncoder
+  # model_name: 'vit_base_patch16_clip_224.openai' # For TIMM
+  # model_name: "vit_small_patch16_224.dino"
+  # feature_aggregation: 'cls'
+  # _target_: imitation_learning.models.encoders.image_encoders.SharedSiglipImageEncoder
+  _target_: imitation_learning.models.encoders.image_encoders.SiglipImageEncoder
+  model_name: 'google/siglip2-base-patch16-256'
+  apply_image_norm: True
+  feature_aggregation: 'map'
+  image_meta: ???
+
+  pretrained: True
+  frozen: true
+
+proprio_meta: ???
+device: ${device}
+hidden_dim: 512
+freeze_mlp: true
+cutoff_threshold: 0.0
+ckpt_path: ???
+loss_fn_name: bce
+fixed_output_val: null
+history_padding_length: 0 # For separate gate training only

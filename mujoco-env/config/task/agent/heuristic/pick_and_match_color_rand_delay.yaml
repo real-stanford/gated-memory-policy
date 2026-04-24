@@ -1,0 +1,7 @@
+defaults:
+  - pick_and_match_color
+  - _self_
+
+_target_: env.modules.agents.heuristic_agents.pick_and_place_back_agent.PickAndPlaceBackAgent
+
+wait_for_color_reveal: true

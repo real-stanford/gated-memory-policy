@@ -1,0 +1,25 @@
+_target_: imitation_learning.models.encoders.multi_token_encoder.MultiTokenEncoder
+
+image_encoder_partial:
+  _partial_: True
+  # _target_: imitation_learning.models.encoders.image_encoders.TimmImageEncoder
+  # model_name: 'vit_base_patch16_clip_224.openai' # For TIMM
+  # model_name: "vit_small_patch16_224.dino"
+  _target_: imitation_learning.models.encoders.image_encoders.SharedSiglipImageEncoder
+  model_name: 'google/siglip2-base-patch16-256'
+  apply_image_norm: True
+  feature_aggregation: 'patches'
+  individual_forward: False
+  image_meta: ???
+  pretrained: True
+  frozen: false
+
+
+projector_type: "linear"
+# feature_dim: 384
+feature_dim: 768
+data_meta: ${workspace.train_dataset.output_data_meta}
+
+data_entry_names: ???
+
+name: ???

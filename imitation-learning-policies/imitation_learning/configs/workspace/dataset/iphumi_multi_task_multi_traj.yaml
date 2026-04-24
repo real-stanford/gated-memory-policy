@@ -1,0 +1,20 @@
+defaults:
+  - iphumi_multi_traj
+  - _self_
+
+_target_: imitation_learning.datasets.multi_task_dataset.MultiTaskDataset
+
+sub_dataset_target: imitation_learning.datasets.iphumi_dataset.iPhUMIMultiTrajDataset
+
+name: iphumi_multi_task_multi_traj # If overridden, will only choose the corresponding sub-dataset
+
+dataset_configs:
+  pick-and-place-back-all:
+    # traj_interval_min: 2 # To ensure the robot capture enough history information when adding correction actions
+    sample_ratio: 1.0
+  pick-and-place-back-correction-all:
+    sample_ratio: 1.0
+    future_padding_length: 0 # To avoid robot pausing in the air after placing the object
+  pick-and-place-back-and-correction:
+    sample_ratio: 1.0
+

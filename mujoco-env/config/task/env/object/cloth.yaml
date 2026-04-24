@@ -1,0 +1,12 @@
+_target_: env.modules.objects.cloth.Cloth
+
+name: cloth # Can be overridden when including multiple objects. Will change the model name when loading the mjcf model.
+body_name: cloth # Hardcoded in the cloth mjcf xml
+mjcf_path: env/assets/objects/cloth.xml
+# mjcf_path: env/assets/objects/cube.xml
+
+horizontal_vertex_num: 13
+vertical_vertex_num: 13
+
+qadr_start: ???
+total_friction_N: 15 # A higher friction make the simulation more stable

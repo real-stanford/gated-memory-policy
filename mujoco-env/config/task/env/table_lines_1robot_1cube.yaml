@@ -1,0 +1,32 @@
+defaults:
+  - scene/table_lines
+  - object@cube: cube
+  - robot@ur5e: ur5e_wsg50_finray
+  - _self_
+
+
+_target_: env.modules.envs.table_lines_1robot_1cube.TableLines1Robot1Cube
+
+robots:
+  - ${task.env.ur5e}
+
+robot_base_poses_xyz_wxyz:
+  - [0.25, -1.4, 0.0, 0.7071, 0.0, 0.0, 0.7071]
+
+cube_reset_waiting_time: 7.0
+
+robot_init_tcp_poses_xyz_wxyz: 
+  - [0.1, -0.80, 0.365, 0.7071, -0.7071, 0.0, 0.0]
+  
+robot_init_gripper_width:
+  - [0.08]
+
+objects:
+  - ${task.env.cube}
+
+object_poses_xyz_wxyz:
+  - [0.1, -0.7, 0.37, 1.0, 0.0, 0.0, 0.0]
+
+control_freq: 10
+
+wait_until_stable: true

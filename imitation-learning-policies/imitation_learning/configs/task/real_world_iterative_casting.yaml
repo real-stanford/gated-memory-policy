@@ -1,0 +1,35 @@
+#avg:  1015.8, std:  42.0, max: 1041, min: 639
+defaults:
+  - _self_
+
+dataset_type: real_world
+
+workspace:
+  train_dataset:
+    source_data_meta:
+      third_person_camera:
+        rand_idx_offset_max: 10 # To make policy more robust to camera input
+
+    name: real_world_iterative_casting
+    robot_num: 1
+    traj_num: 36
+    repeat_dataset_num: ${cond:${in:${policy_name},memory,gated,midhist,longhist},10,40}
+    starting_percentile_max:  ${cond:${in:${policy_name},memory,gated},0.05,1}
+
+    traj_interval_min: 12
+    traj_interval_max: 18
+
+  model:
+    action_length: 25 # Execution length will be set to 15 during eval
+
+    history_action_num_per_chunk: 15 # Execute 15 steps per chunk
+
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.third_person_camera}
+      proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+    denoising_network_partial:
+      max_history_len: 20
+      
+  trainer:
+    keep_saving_keywords: []

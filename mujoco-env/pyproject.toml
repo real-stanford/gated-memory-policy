@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mujoco-env"
+version = "0.1.0"
+description = "A customizable Mujoco environment for robot research"
+authors = [
+    {name = "Yihuai Gao", email = "yihuai@stanford.edu"},
+]
+dependencies = [
+    "flask",
+    "flask-socketio",
+    "numpy",
+    "transforms3d",
+    "spnav @ https://github.com/cheng-chi/spnav/archive/c1c938ebe3cc542db4685e0d13850ff1abfdb943.tar.gz",
+    "click"
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "pylint",
+]
+
+[tool.setuptools.packages.find]
+include = ["env*", "env/modules/*", "env/utils/*"]

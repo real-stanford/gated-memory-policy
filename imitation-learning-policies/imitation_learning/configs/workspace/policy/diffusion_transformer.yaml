@@ -1,0 +1,51 @@
+defaults:
+  - cond_encoder@global_cond_encoder: multi_token_encoder
+  - cond_encoder@local_cond_encoder: multi_token_encoder
+  - action_decoder/action_only_1d_decoder
+  - denoising_network@denoising_network_partial: conditional_transformer
+  - common@noise_scheduler: diffusion_noise_scheduler
+  - _self_
+
+_target_: imitation_learning.policies.base_denoising_policy.BaseDenoisingPolicy
+
+local_cond_encoder: 
+  name: local_cond_encoder
+  data_entry_names: ${workspace.train_dataset.proprio_keys}
+  image_encoder_partial: 
+    feature_aggregation: "map"
+
+global_cond_encoder:
+  name: global_cond_encoder
+  data_entry_names: ${workspace.train_dataset.image_keys}
+
+shared_model_manager:
+  _target_: imitation_learning.models.encoders.image_encoders.SharedModelManager
+  cache_size: 10
+
+action_decoder:
+  data_entry_names: ${workspace.train_dataset.action_keys}
+
+seed: ${seed}
+device: ${device}
+input_perturb: 0.0
+
+# global_cond_mask_max_prob: 0.0
+# local_cond_mask_max_prob: 0.0
+# noisy_traj_mask_max_prob: 0.0
+# step_mask_max_prob: 0.0
+# mask_prob_level_num: 4
+# mask_in_eval: False
+
+
+image_indices: [0]
+image_length: 1
+
+# If not using relative pose, will use the last 2 proprio steps so it includes current velocity
+proprio_indices: [0]
+proprio_length: 1 
+
+action_length: 16
+# Should be ${range:-1,${workspace.model.action_length}} if using relative pose
+action_indices: ${range:0,${workspace.model.action_length}}
+
+history_padding_length: 0

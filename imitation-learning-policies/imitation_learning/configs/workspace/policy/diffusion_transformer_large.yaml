@@ -1,0 +1,20 @@
+defaults:
+  - diffusion_transformer
+  - _self_
+
+global_cond_encoder:
+  image_encoder_partial:
+    model_name: google/siglip2-large-patch16-256
+  feature_dim: 1024
+local_cond_encoder:
+  image_encoder_partial:
+    model_name: google/siglip2-large-patch16-256
+  feature_dim: 1024
+denoising_network_partial:
+  head_num: 12
+  layer_num: 24
+  hidden_dim: 768
+
+
+proprio_length: 2
+proprio_indices: [-1, 0]

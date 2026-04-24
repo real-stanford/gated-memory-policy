@@ -1,0 +1,56 @@
+<mujoco model="cloth">
+
+    <compiler inertiafromgeom='auto' />
+    <option solver="PGS" tolerance="1e-6" />
+
+    <!-- <compiler meshdir="meshes/" /> -->
+
+    <!-- <option timestep="0.01" integrator="implicitfast" viscosity="0.3" solver="CG"
+    tolerance="1e-6">
+        <flag energy="enable" />
+    </option> -->
+
+    <!-- <extension>
+        <plugin plugin="mujoco.elasticity.shell" />
+    </extension> -->
+
+    <asset>
+        <texture name="cloth_texture" type="2d"
+            file="../textures/chequered_rag.png" />
+        <material name="cloth_material" texture="cloth_texture"/>
+
+    </asset>
+    <worldbody>
+
+        <!-- <flexcomp name="cloth" type="mesh" radius="0.001" dim="2" pos="0.0 0.0 0.0"
+            mass="2.552954456795875" material="cloth/cloth_material"
+            file="/home/yihuai/robotics/repositories/mujoco/mujoco-env/env/assets/objects/meshes/rag.obj">
+            <edge equality="true" damping="1.0" />
+            <contact solref="0.003" />
+            <plugin plugin="mujoco.elasticity.shell">
+                <config key="poisson" value="0.4032740512363587" />
+                <config key="thickness" value="0.0005" />
+                <config key="young" value="85242.02369946481" />
+            </plugin>
+        </flexcomp> -->
+
+        <!-- <freejoint /> -->
+        <flexcomp name="cloth" type="grid" count="13 13 1" spacing="0.025 0.025 0.025" dim="2"
+            mass="0.8" material="cloth/cloth_material" radius="0.002" inertiabox="0.01">
+            <edge equality="true" damping="5" />
+            <contact selfcollide="none" friction="2.0 0.05 0.05" solref="0.01 8 "/>
+            <!-- <joint kind="twist" damping="0.0001" /> -->
+
+            <!-- <elasticity young="85242" thickness="0.0005" poisson="0.4" /> -->
+
+            <!-- <plugin plugin="mujoco.elasticity.shell">
+                <config key="poisson" value="0.4032740512363587" />
+                <config key="thickness" value="0.0005" />
+                <config key="young" value="85242.02369946481" />
+            </plugin> -->
+        </flexcomp>
+
+    </worldbody>
+
+
+</mujoco>

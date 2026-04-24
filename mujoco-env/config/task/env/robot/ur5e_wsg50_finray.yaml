@@ -1,0 +1,43 @@
+_target_: env.modules.robots.base_robot.BaseRobot
+
+
+arm_name: ur5e
+arm_mjcf_path: env/assets/robots/mujoco_menagerie/universal_robots_ur5e/ur5e.xml
+arm_home_qpos: [-1.5708, -1.5708, 1.5708, 3.14159, -1.5708, 0]
+arm_joint_names:
+  - shoulder_pan_joint
+  - shoulder_lift_joint
+  - elbow_joint
+  - wrist_1_joint
+  - wrist_2_joint
+  - wrist_3_joint
+
+arm_actuator_names:
+  - shoulder_pan
+  - shoulder_lift
+  - elbow
+  - wrist_1
+  - wrist_2
+  - wrist_3
+
+arm_max_speed: [3.14, 3.14, 3.14, 3.14, 3.14, 3.14]
+
+attachment_site: attachment_site
+
+gripper_mjcf_path: env/assets/robots/wsg50/wsg50_finray_milibar.xml
+
+gripper_width_m: 0.10
+gripper_name: wsg50
+gripper_joint_names:
+  - right_driver_joint
+  - left_driver_joint
+gripper_actuator_names:
+  - gripper
+gripper_tcp_site: end_effector
+
+camera_names:
+  - wrist_camera
+
+camera_resolution_hw:
+  - 256
+  - 256

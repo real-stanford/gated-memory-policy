@@ -1,0 +1,28 @@
+defaults:
+  - _self_
+
+_target_: real_env.agents.spacemouse_agent.SpacemouseAgent
+
+pose_orientation_types: ???
+# Need to manually test which type is the correct one. Will be different because of different robot base orientation.
+# In general, suppose the robot base frame is z pointing up, this orientation type can be calculated given the z direction of the robot home pose:
+# - gripper z pointing to +x -> type 0
+# - gripper z pointing to +y -> type 1
+# - gripper z pointing to -x -> type 2
+# - gripper z pointing to -y -> type 3
+
+
+agent_update_freq_hz: 10
+robot_num: 1
+rmq_server_address: tcp://localhost:15557
+position_speed_m_per_s: 0.3
+rotation_speed_rad_per_s: 0.60
+gripper_speed_m_per_s: 0.05
+gripper_width_m: 0.11
+gripper_max_overshoot_m: 0.01
+
+action_prediction_horizon: 1
+action_execution_horizon: 1
+proprio_history_len: 1
+action_history_len: 1
+image_history_len: 0

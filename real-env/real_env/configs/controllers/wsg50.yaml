@@ -1,0 +1,14 @@
+_target_: real_env.controllers.wsg50.WSG50
+
+robot_ip: 192.168.2.110
+robot_port: 1000
+server_endpoint: tcp://localhost:16667
+logger_endpoint: tcp://localhost:55556
+robot_name: right_end_effector
+lookahead_time_s: 0.00
+traj_smooth_time_s: 0.0
+home_gripper_width_m: 0.10
+max_pos_speed_m_per_s: 1.0
+trim_new_trajectory_time_s: 0.09 # Slightly lower than 0.1
+ctrl_freq: 30
+dynamic_latency: False

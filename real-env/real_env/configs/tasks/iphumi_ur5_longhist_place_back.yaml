@@ -1,0 +1,12 @@
+defaults:
+  - iphumi_ur5
+  - override ../agents@policy_agent: longhist_policy_agent
+  - _self_
+
+project_name: memory
+task_name: longhist_place_back
+
+policy_agent:
+  agent_update_freq_hz: 10
+
+pause_when_policy_inference: false

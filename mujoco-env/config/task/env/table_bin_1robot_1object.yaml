@@ -1,0 +1,30 @@
+defaults:
+  - scene@scene: table_bin
+  # - object@can: can
+  - object@cube: cube
+  - robot@ur5e: ur5e_wsg50_finray
+  - _self_
+
+_target_: env.modules.envs.table_bin_1robot_1object.TableBin1Robot1Object
+
+robots:
+  - ${task.env.ur5e}
+robot_base_poses_xyz_wxyz:
+  - [0.9, 0.28, 0.2, 0.0, 0.0, 0.0, 1.0]
+
+robot_init_tcp_poses_xyz_wxyz: # Will be overwritten by episode config
+  - [0.228, 0.1459, 0.4331, 0.0002, 0.7071, 0.7071, 0.0000]
+
+
+robot_init_gripper_width: # Will be overwritten by episode config
+  - [0.10]
+
+objects:
+  - ${task.env.cube}
+  # - ${task.env.can}
+object_poses_xyz_wxyz: # Will be overwritten by episode config
+  - [0.05, 0.14, 0.4, 1.0, 0.0, 0.0, 0.0]
+
+control_freq: 10
+
+wait_until_stable: true

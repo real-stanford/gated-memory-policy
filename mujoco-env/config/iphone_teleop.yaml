@@ -1,0 +1,28 @@
+defaults:
+  - scenes/table_bin
+  - robots@robots.ur5e: ur5e_wsg50_finray
+  # - peripherals@iphone_controller: iphone_controller
+  - _self_
+
+robot_base_poses_xyz_wxyz: 
+  - [0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+robot_list:
+  - ${robots.ur5e}
+
+# peripherals:
+#   - ${iphone_controller}
+
+obj_mjcf_paths:
+  - env/assets/objects/can.xml
+
+obj_poses_xyz_wxyz:
+  - [0.05, 0.14, 0.4, 1.0, 0.0, 0.0, 0.0]
+
+iphone_controller_config:
+  server_address: "tcp://localhost:5555"
+  init_pose_xyz_wxyz: [ 0.108, -0.134,  0.268, -0.000, 0.707,  0.707,  0.000]
+  
+  # iphone_camera_in_target_eef_wxyz: [ 1.0, 0.0, 0.0, 0.0 ]
+  iphone_camera_in_target_eef_wxyz: [0.707, -0.707, 0.0, 0.0]
+  # iphone_camera_in_target_eef_wxyz: [0.5, -0.5, 0.5, 0.5]

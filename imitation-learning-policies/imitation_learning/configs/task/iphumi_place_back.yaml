@@ -1,0 +1,31 @@
+defaults:
+  - _self_
+
+dataset_type: iphumi
+
+workspace:
+
+  train_dataset:
+    name: iphumi_place_back
+    robot_num: 1
+    traj_num: 72
+    dataloader_cfg:
+      batch_size: ${cond:${in:${policy_name},large},1,2}
+
+  model:
+
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.robot0_ultrawide_camera}
+      proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+        # image_meta: ${workspace.train_dataset.output_data_meta.robot0_main_camera}
+
+    denoising_network_partial:
+      max_history_len: 32
+    
+        
+  trainer:
+    rollout_every: 0
+    keep_saving_keywords: []
+
+  

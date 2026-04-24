@@ -1,0 +1,33 @@
+defaults:
+  - ../agents@policy_agent: policy_agent
+  - ../agents@spacemouse_agent: spacemouse_agent
+
+spacemouse_agent:
+  pose_orientation_types: [0]
+
+_target_: real_env.tasks.umi_arx5_task.UmiARX5Task
+
+root_dir: data
+project_name: ???
+task_name: ???
+run_name: ${now:%Y-%m-%d}_arx5_<POLICY_NAME>_epoch<POLICY_EPOCH>
+logger_endpoints:
+  right_wrist_camera_0: tcp://localhost:55555
+  right_arm: tcp://localhost:55560
+  right_end_effector: tcp://localhost:55561
+  # third_person_camera_0: tcp://localhost:55558
+draw_gripper_mask: true
+draw_mirrors_mask: false
+pause_when_policy_inference: false
+arx5_controller_endpoint: tcp://localhost:16701
+arx5_lookahead_time_s: 0.1
+arx5_home_pose_xyz_wxyz: null
+arx5_home_gripper_pos_m: 0.04
+wrist_camera_endpoint: tcp://localhost:16700
+third_person_camera_endpoint: ""
+camera_latency_s: 0.08
+policy_latency_s: 0.1
+
+match_camera_latency: false
+
+crop_image: [256, 256]

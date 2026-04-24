@@ -1,0 +1,83 @@
+defaults:
+  - env/table_only_2robots_1cloth
+  - base_task
+  - _self_
+
+
+_target_: env.modules.tasks.fling_cloth.FlingCloth
+
+name: fling_cloth
+successful_reward: 1.0
+
+env:
+  ur5e_left:
+    camera_names: [] # Do not use wrist camera
+    gripper_mjcf_path: env/assets/robots/wsg50/wsg50_finray_no_collision.xml
+    
+  ur5e_right:
+    camera_names: [] # Do not use wrist camera
+    gripper_mjcf_path: env/assets/robots/wsg50/wsg50_finray_no_collision.xml
+
+  judge:
+    _target_: env.modules.judges.fling_cloth_judge.FlingClothJudge
+    time_limit_s: 20.0
+    prolong_after_success_s: 1.0
+
+    cloth_edge_threshold_x: -0.12  # The edge of black line that is closer to the robot
+    grid_num_threshold: 10 # At least half of the grids should fall on the black line
+    fling_up_threshold_z: 0.60
+    fling_down_threshold_z: 0.25
+    success_check_delay_s: 1.2 # To make sure the cloth is stable
+    total_trial_num: 5
+    continual_successful_trial_num: 3
+
+    horizontal_vertex_num: ${task.env.cloth.horizontal_vertex_num}
+
+
+agent:
+  policy_obs_keys:
+    - "robot0_tcp_xyz_wxyz"
+    - "robot0_gripper_width"
+    - "robot1_tcp_xyz_wxyz"
+    - "robot1_gripper_width"
+    - "third_person_camera"
+  robot_num: 2
+  move_gripper: false
+  default_gripper_widths: [0.0, 0.0]
+  movement_constraints: ["x", "z"]
+  default_actions: ${task.env.robot_init_tcp_poses_xyz_wxyz}
+
+cloth_mass_min: 0.3
+cloth_mass_max: 2.0
+mass_perturbation_std: 0.001
+sampled_masses_only: true
+
+# Calculated through "scripts/analyze_flinging_distances.py"
+sampled_cloth_masses:
+  - 0.1
+  - 0.15
+  - 0.2
+  - 0.3
+  - 0.5
+  - 1.0
+  - 2.0
+
+
+sampled_speed_scales:
+  - 0.27
+  - 0.4
+  - 0.5
+  - 0.6
+  - 0.8
+  - 1.0
+  - 1.2
+
+viewer_cam_init_kwargs:
+  # lookat: [0.175, 0.152, 0.5917]
+  # distance: 1.616117590298724
+  # azimuth: -43.375
+  # elevation: -43.375
+  lookat: [0.1547, 0.0738, 0.6256]
+  distance: 1.0753538027202423
+  azimuth: -25.625
+  elevation: -42.75

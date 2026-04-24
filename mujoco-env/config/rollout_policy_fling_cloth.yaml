@@ -1,0 +1,12 @@
+defaults:
+  - rollout_policy
+
+task:
+  env:
+    scene:
+      cameras:
+        visualization_camera: [640, 480]
+
+
+episode_num: 2
+start_seed: 10006

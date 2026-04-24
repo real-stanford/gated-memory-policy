@@ -1,0 +1,26 @@
+defaults:
+  - hydra
+  - _self_
+
+task_name: ???
+
+task:
+  use_viewer: true
+  render_all_images: true
+  show_camera_images: true
+  data_storage_dir: data/run_heuristic_agent/${now:%Y-%m-%d_%H-%M-%S}
+  keyboard_address: "tcp://localhost:15558"
+  play_speed: 1.0
+
+  env:
+    scene:
+      cameras:
+        # visualization_camera: [720, 640] # For table-bin
+        visualization_camera: [1440, 1280] # For table-bin
+        # visualization_camera: [1440, 640] # For cube pushing
+
+
+episode_num: 1
+start_seed: 15
+
+

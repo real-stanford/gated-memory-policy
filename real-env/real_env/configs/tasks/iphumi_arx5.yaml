@@ -1,0 +1,9 @@
+defaults:
+  - umi_arx5
+  - _self_
+
+_target_: real_env.tasks.iphumi_arx5_task.iPhumiARX5Task
+draw_gripper_mask: false
+project_name: ???
+task_name: ???
+pause_when_policy_inference: false

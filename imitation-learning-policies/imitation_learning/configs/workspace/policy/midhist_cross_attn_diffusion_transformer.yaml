@@ -1,0 +1,21 @@
+defaults:
+  - diffusion_transformer
+  - _self_
+
+global_cond_encoder:
+  image_encoder_partial:
+    feature_aggregation: 'map'
+  data_entry_names: ${concat:${workspace.train_dataset.image_keys},${workspace.train_dataset.proprio_keys}}
+
+local_cond_encoder: null
+
+denoising_network_partial:
+  global_cond_pos_emb_type: 1d
+
+shared_model_manager:
+  cache_size: 20
+
+proprio_indices: ${range:-15,1}
+proprio_length: 16
+image_indices: ${range:-15,1}  
+image_length: 16

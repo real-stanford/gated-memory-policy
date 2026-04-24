@@ -1,0 +1,11 @@
+
+defaults:
+  - robomimic_square_ph
+  - _self_
+
+workspace:
+  # frame num: avg 268 (std 123)
+  train_dataset:
+    name: robomimic_square_mh
+    robot_num: 1
+    traj_num: 50

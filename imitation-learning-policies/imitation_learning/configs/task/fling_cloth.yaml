@@ -1,0 +1,85 @@
+defaults:
+  - _self_
+
+dataset_type: mujoco
+
+workspace:
+  train_dataset:
+    # Frame num: avg 380, std 19
+    name: fling_cloth
+    robot_num: 1
+    repeat_dataset_num: ${cond:${in:${policy_name},memory,gated},1,5}
+    starting_percentile_max: ${cond:${in:${policy_name},memory,gated},0.4,1}
+    
+    proprio_keys:
+      - robot0_10d
+      - robot1_10d
+    action_keys:
+      - action0_10d
+      - action1_10d
+
+    source_data_meta:
+      robot1_tcp_xyz_wxyz:
+        name: robot1_tcp_xyz_wxyz
+        include_indices: ${workspace.model.proprio_indices}
+        shape: [7]
+      robot1_gripper_width:
+        name: robot1_gripper_width
+        include_indices: ${workspace.model.proprio_indices}
+        shape: [1]
+      action1_tcp_xyz_wxyz:
+        name: action1_tcp_xyz_wxyz
+        include_indices: ${workspace.model.action_indices}
+        shape: [7]
+      action1_gripper_width:
+        name: action1_gripper_width
+        include_indices: ${workspace.model.action_indices}
+        shape: [1]
+      action1_is_error:
+        name: action1_is_error
+        include_indices: ${workspace.model.action_indices}
+        shape: [1]
+      action1_is_critical:
+        name: action1_is_critical
+        include_indices: ${workspace.model.action_indices}
+        shape: [1]
+
+    output_data_meta:
+      robot1_10d:
+        name: robot1_10d
+        data_type: low_dim
+        length: ${workspace.model.proprio_length}
+        normalizer: range
+        augmentation: []
+        shape: [10]
+        source_entry_names:
+          - robot1_tcp_xyz_wxyz
+          - robot1_gripper_width
+
+      action1_10d:
+        name: action1_10d
+        data_type: low_dim
+        length: ${workspace.model.action_length}
+        normalizer: range
+        augmentation: []
+        shape: [10]
+        source_entry_names:
+          - action1_tcp_xyz_wxyz
+          - action1_gripper_width
+      
+    traj_num: 48
+    
+  model:
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.third_person_camera}
+      proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+
+    denoising_network_partial:
+      max_history_len: 30
+      
+  trainer:
+    keep_saving_keywords: []
+      # - memory_gate.image_encoder.model.vision_model.head # For finetuning the last layer of siglip
+      # - history_img_feature_encoder.encoder_dict.third_person_camera.model.vision_model.head # For finetuning the last layer of siglip
+      

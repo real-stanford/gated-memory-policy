@@ -1,0 +1,23 @@
+defaults:
+  - conditional_transformer
+  - _self_
+
+_target_: imitation_learning.models.denoising_networks.memory_transformer.MemoryTransformer
+
+max_history_len: 16
+freeze_non_history_modules: False
+history_attention_type: token_wise
+record_data_entries: []
+  # - memory_gate_val # Required for memory gate regularization
+  # - history_cross_attention # Optional, for visualization and debugging
+
+include_action_history: True
+
+memory_gate_include_first_token: True
+memory_gate_func: abs # or square
+ssmax_scaling_param: null # If null, will use softmax; 0.2 is a value used in the paper
+add_additional_self_attn: True # Does not matter much?
+skip_history_attn: False # For ablation study
+add_memory_gate_token: False
+binary_gating: True
+straight_through: ""

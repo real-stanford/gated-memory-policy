@@ -1,0 +1,8 @@
+defaults:
+  - diffusion_memory_transformer
+  - common@memory_gate: memory_gate
+  - _self_
+
+denoising_network_partial:
+  record_data_entries:
+    - memory_gate_val

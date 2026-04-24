@@ -1,0 +1,24 @@
+defaults:
+  - hydra
+  - _self_
+
+time_str: ${now:%Y-%m-%d-%H-%M-%S}
+
+task:
+  agent:
+    policy_server_address: "tcp://localhost:${policy_server_port}"
+
+  data_storage_dir: data/rollout_policy_parallel/${time_str}
+  env_num: 10
+
+  # For better visualization
+  # env:
+  #   scene:
+  #     cameras:
+  #       visualization_camera: [640, 480]
+  # render_image_indices: [-8, -7, -6, -5, -4, -3, -2, -1] # Render all images
+
+task_name: ???
+policy_server_port: ???
+episode_num: 100
+start_seed: 10005

@@ -1,0 +1,28 @@
+_target_: real_env.controllers.arx5_cartesian.ARX5Cartesian
+
+model: ???
+interface_name: can0
+server_endpoint: tcp://localhost:16701
+cartesian_logger_endpoint: tcp://localhost:55560
+joint_logger_endpoint: tcp://localhost:55561
+robot_name: right_arm
+no_cmd_timeout_s: 60.0
+kp:
+  - 400
+  - 400
+  - 400
+  - 160
+  - 120
+  - 100
+ctrl_freq: 100.0
+max_pos_speed_m_per_s: 0.6
+max_rot_speed_rad_per_s: 0.8
+max_gripper_speed_per_s: 0.5
+lookahead_time_s: 0.1
+traj_smooth_time_s: 0.0
+trim_new_trajectory_time_s: 0.09
+dynamic_latency: true
+latency_matching_dt: 0.05
+latency_precision: 0.02
+latency_pos_weight: 1.0
+latency_rot_weight: 0.1

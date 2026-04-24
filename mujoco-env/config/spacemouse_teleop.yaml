@@ -1,0 +1,18 @@
+defaults:
+  - hydra
+  - _self_
+
+task_name: ???
+
+task:
+  use_viewer: true
+  env:
+    judge:
+      time_limit_s: 100000
+
+  render_all_images: true
+  show_camera_images: true
+  data_storage_dir: data/run_heuristic_agent
+  keyboard_address: "tcp://localhost:15558"
+
+episode_num: 10

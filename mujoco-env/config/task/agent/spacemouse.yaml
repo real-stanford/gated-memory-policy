@@ -1,0 +1,20 @@
+_target_: env.modules.agents.spacemouse_agent.SpacemouseAgent
+
+rmq_server_address: "tcp://localhost:15557"
+
+position_speed_m_per_s: 0.5
+rotation_speed_rad_per_s: 0.3
+gripper_speed_m_per_s: 0.05
+gripper_max_overshoot_m: 0.05
+
+gripper_width_m: ${task.env.robots[0].gripper_width_m} # Might need to be overridden if using a different gripper
+robot_num: 1
+agent_update_freq_hz: 10
+action_prediction_horizon: 1
+action_execution_horizon: 1
+obs_history_len: 1
+action_history_len: 1
+image_obs_frames_ids: [-1]
+proprio_obs_frames_ids: [-1]
+
+robot_base_poses_xyz_wxyz: ${task.env.robot_base_poses_xyz_wxyz}

@@ -1,0 +1,18 @@
+defaults:
+  - umi_arx5
+  - _self_
+
+project_name: memory
+task_name: multi_task
+pause_when_policy_inference: false
+
+draw_mirrors_mask: true # Please check whether mirrors are used in the data collection
+# If used (e.g. cup arrangement... , from UMI, ManiWAV), mask should be true to reduce domain gap
+# If not used (e.g. fold_towel, mouse_arrangement, ..., from DataScalingLaw, ...), mask should be false
+
+policy_agent:
+  agent_update_freq_hz: 8 # (DataScalingLaw tasks are too fast, may reduce to 5 Hz to slow down the policy)
+  keep_one_step_dummy_proprio: false # This is used for the legacy UMI policy, where the last observation step is actually zero
+  # This will be automatically parsed from the policy config
+  # proprio_history_len: 1 # This number should be one step longer than the policy proprio_len: the latest state will be used to calculate relative pose
+  # action_history_len: 1 # Same as this one if `action_as_proprio` is true

@@ -1,0 +1,6 @@
+defaults:
+  - mujoco_single_traj
+  - _self_
+
+down_sample_steps: 2 # 30fps -> 15fps
+

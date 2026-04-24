@@ -1,0 +1,12 @@
+defaults:
+  - iphumi_arx5
+  - _self_
+
+_target_: real_env.tasks.iphumi_arx5_task.iPhumiARX5Task
+
+project_name: memory
+task_name: flip_and_place_back
+pause_when_policy_inference: false
+
+policy_agent:
+  agent_update_freq_hz: 12

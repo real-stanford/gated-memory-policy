@@ -1,0 +1,5 @@
+defaults:
+  - robomimic_policy
+  - _self_
+
+_target_: env.modules.agents.robomimic_policy_parallel_agent.RobomimicPolicyParallelAgent

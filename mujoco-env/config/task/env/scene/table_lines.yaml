@@ -1,0 +1,16 @@
+_target_: env.modules.scenes.table_lines.TableLines
+name: table_lines
+
+mjcf_path: env/assets/scenes/table_lines.xml
+
+cameras:
+  third_person_camera: [256, 256]
+  # zoom_in_camera: [256, 256]
+
+table_center_xyz: [0.1, 0.0, 0.2]
+table_width: 0.4
+table_length: 1.5
+
+line_center_xyz: [0.1, -0.3, 0.02]
+box_center_xyz: [0.1, 0.35, 0.02]
+box_width: 0.1

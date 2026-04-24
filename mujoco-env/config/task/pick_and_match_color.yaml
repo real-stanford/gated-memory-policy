@@ -1,0 +1,16 @@
+defaults:
+  - pick_and_place_back
+  - _self_
+
+_target_: env.modules.tasks.pick_and_place_back.PickAndPlaceBack
+
+name: pick_and_match_color
+successful_reward: 1.0
+
+shuffle_bin_material: true
+object_init_bin_ids: []
+delta_bin_id: 0
+delay_init_bin_materials: True
+
+init_bin_materials: []
+final_bin_materials: [1,2,3,4]

@@ -1,0 +1,39 @@
+_target_: imitation_learning.trainers.base_trainer.BaseTrainer
+
+seed: ${seed}
+optimizer_partial: 
+  _target_: torch.optim.AdamW
+  _partial_: True
+  params: ???
+  lr: 3.0e-4
+  betas: [0.95, 0.999]
+  eps: 1.0e-8
+  weight_decay: 1.0e-6
+
+lr_scheduler_name: cosine
+lr_warmup_steps: 2000
+num_epochs: 21
+val_every: ${cond:${in:${policy_name},memory,gated},${cond:${in:${policy_name},large},0,2},2} # Skip validation fror large models to save memory
+sample_every: 2
+checkpoint_every: 1
+gradient_accumulation_steps: 1
+output_dir: ???
+tqdm_interval_sec: 0.1
+mixed_precision: "bf16" # fp16 May lead to NaN loss
+# mixed_precision: null
+
+checkpoint_manager:
+  _target_: imitation_learning.trainers.checkpoint_manager.CheckpointManager
+  output_dir: ${workspace.trainer.output_dir}
+  max_ckpt_num: 40
+  sort_key: ???
+  keep_min: ???
+  keep_latest: True
+  save_workspace: True
+
+debug: False
+loss_temperatures: []
+
+clip_grad_norms: [1.0, 0.5, 0.2, 0.15, 0.1]
+
+finetune_lr_ratio: 0.1

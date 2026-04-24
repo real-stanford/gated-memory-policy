@@ -1,0 +1,14 @@
+
+_target_: env.modules.agents.robomimic_policy_agent.RobomimicPolicyAgent
+
+
+policy_server_address: ???
+robot_num: ???
+agent_update_freq_hz: 20
+action_prediction_horizon: 16
+action_execution_horizon: 8
+obs_history_len: 1
+action_history_len: 1
+image_obs_frames_ids: [-1]
+proprio_obs_frames_ids: [-1]
+policy_obs_keys: ???

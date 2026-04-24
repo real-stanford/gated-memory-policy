@@ -1,0 +1,28 @@
+defaults:
+  - iphumi_single_traj
+  - _self_
+
+_target_: imitation_learning.datasets.iphumi_dataset.iPhUMIMultiTrajDataset
+
+traj_num: 72
+traj_interval_min: 4
+traj_interval_max: 8
+starting_percentile_max: 0.1
+# traj_interval_min: 8
+# traj_interval_max: 8
+
+dataloader_cfg:
+  batch_size: ${cond:${in:${policy_name},large},1,4} # For finetuning including the non-history modules. The actual batch size is 4 * 72 (traj_num) = 288
+
+
+split_dataloader_cfg:
+  batch_size: ${cond:${in:${policy_name},large},16,64}
+  num_workers: 24
+  pin_memory: true
+  persistent_workers: true
+  shuffle: false
+  prefetch_factor: 1
+
+index_pool_size_per_episode: ${cond:${in:${policy_name},large},50,100}
+
+repeat_dataset_num: 1 # How many times to repeat the dataset. Multi-traj dataset is comsumed much slower than single-traj dataset.

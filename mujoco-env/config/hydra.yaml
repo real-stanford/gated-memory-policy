@@ -1,0 +1,5 @@
+hydra:
+  job:
+    override_dirname: ${task.name}
+  run:
+    dir: ${task.data_storage_dir}

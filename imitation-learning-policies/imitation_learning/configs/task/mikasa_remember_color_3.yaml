@@ -1,0 +1,28 @@
+defaults:
+  - _self_
+
+dataset_type: mikasa
+
+# Step num: 60
+
+workspace:
+  train_dataset:
+    robot_num: 1
+    repeat_dataset_num: 1
+    traj_interval_min: 2 # To make the policy more reactive: only execute 2 actions
+    traj_interval_max: 2
+    # episode_starting_idx_max: 1 # Always start from the first step
+    dataloader_cfg:
+      batch_size: 4
+    name: RememberColor3-v0
+    
+  model:
+    denoising_network_partial:
+      max_history_len: 30
+      include_action_history: False
+    action_length: 2
+    # action_indices: ${range:1,${workspace.model.action_length}+1} # when directly using states as actions
+    proprio_length: 0
+    proprio_indices: []
+    history_action_num_per_chunk: 2
+    

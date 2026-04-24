@@ -1,0 +1,8 @@
+_target_: env.modules.objects.base_object.BaseObject
+
+name: can
+mjcf_path: env/assets/objects/can.xml
+
+radius: 0.025
+center_height: 0.06
+rotation_angle_range: [-0.785, 0.785]

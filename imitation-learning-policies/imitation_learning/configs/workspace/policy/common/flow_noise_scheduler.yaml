@@ -1,0 +1,4 @@
+_target_: imitation_learning.models.common.noise_scheduler.FlowNoiseScheduler
+
+train_step_num: 24
+inference_step_num: 8

@@ -1,0 +1,19 @@
+defaults:
+  - _self_
+
+dataset_type: mujoco
+
+workspace:
+  train_dataset:
+    name: pick_and_match_color
+    robot_num: 1
+    repeat_dataset_num: ${cond:${in:${policy_name},memory,gated},1,20}
+    starting_percentile_max: ${cond:${in:${policy_name},memory,gated},0.1,1}
+    
+  model:
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.third_person_camera}
+      proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+  trainer:
+    keep_saving_keywords: []

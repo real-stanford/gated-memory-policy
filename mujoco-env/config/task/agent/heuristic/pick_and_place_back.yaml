@@ -1,0 +1,49 @@
+_target_: env.modules.agents.heuristic_agents.pick_and_place_back_agent.PickAndPlaceBackAgent
+
+
+# Base class parameters
+robot_num: 1
+position_speed_m_per_s: 0.2
+rotation_speed_rad_per_s: 0.8
+gripper_speed_m_per_s: 0.05
+seed: 0
+agent_update_freq_hz: 10
+
+
+# Pick and Place Back specific parameters
+
+delta_bin_id: 0
+drifting_speed_m_per_s: 0.1
+drifting_speed_rad_per_s: 0.1
+match_bin_material: false
+critical_action_num: 5
+
+pregrasp_relative_to_object_poses:
+  - [-0.0184, 0.0001, -0.0121, 0.2445, -0.6804, -0.6636, 0.192]
+  - [-0.0059, -0.0042, -0.005, 0.1486, -0.6685, -0.7102, 0.1631]
+  - [-0.0049, 0.0007, -0.002, 0.2108, -0.6754, -0.6847, 0.1751]
+
+keyframe_absolute_poses:
+  # candidates for keyframe1
+  - - [0.09, 0.28, 0.4, 0, -0.71, -0.71, 0]
+
+keyframe_regular_wait_time_ranges_s:
+# No longer needs to randomize wait time
+  - [2.0, 2.0]
+  
+# No longer needs drifting
+keyframe_drifting_time_ranges_s:
+  - [0.0, 0.0]
+keyframe_drifting_prob: 0.0 
+
+place_relative_to_bin_center_poses:
+  - [-0.0024, -0.0044, 0.0708, 0.1708, -0.6981, -0.6781, 0.1537]
+  - [0.0039, -0.0036, 0.0785, 0.1128, -0.6787, -0.7086, 0.1569]
+  - [-0.0018, 0.0045, 0.0745, 0.0539, -0.705, -0.6894, 0.1589]
+
+grasp_gripper_width: [0.04]
+release_gripper_width: [0.10]
+
+lift_height_min: 0.05
+lift_height_max: 0.10
+

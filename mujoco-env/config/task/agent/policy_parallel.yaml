@@ -1,0 +1,5 @@
+defaults:
+  - policy
+  - _self_
+
+_target_: env.modules.agents.manipulation_policy_parallel_agent.ManipulationPolicyParallelAgent

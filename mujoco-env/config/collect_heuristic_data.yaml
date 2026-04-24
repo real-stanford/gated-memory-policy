@@ -1,0 +1,20 @@
+defaults:
+  - hydra
+  - _self_
+
+object_init_bin_ids: null
+data_dir: data/collect_heuristic_data
+run_name: ???
+task_name: ???
+task:
+  use_viewer: false
+  render_all_images: true
+  data_storage_dir: ${data_dir}/${run_name}
+
+
+# total_episodes: 300 # 300 for pick_and_match_color and pick_and_place_back
+total_episodes: 500 # 500 for push_cube and fling_cloth
+parallel_workers: ???
+mujoco_gl: egl
+merge_data: false
+compress_data: false

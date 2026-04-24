@@ -1,0 +1,8 @@
+agent: ???
+render_all_images: false
+use_viewer: false
+show_camera_images: false
+data_storage_dir: ???
+play_speed: 1.0
+keyboard_address: ""
+

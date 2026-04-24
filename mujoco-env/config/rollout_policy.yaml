@@ -1,0 +1,30 @@
+defaults:
+  - _self_
+
+time_str: ${now:%Y-%m-%d-%H-%M-%S}
+
+task:
+  use_viewer: true
+  # use_viewer: false
+  agent:
+    policy_server_address: "tcp://localhost:${policy_server_port}"
+
+  render_all_images: true
+  show_camera_images: true
+  data_storage_dir: data/rollout_policy/${time_str}_${task_name}
+  keyboard_address: "tcp://localhost:15558"
+  play_speed: 1.0
+  # play_speed: 5.0
+
+policy_server_port: ???
+merge_data: false # Merge into UMI-like dataset where all the arrays are concatenated
+compress_data: false # Compress the data using lz4
+episode_num: 1
+start_seed: 10000
+
+task_name: ???
+
+
+
+
+

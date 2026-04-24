@@ -1,0 +1,5 @@
+defaults:
+  - longhist_cross_attn_diffusion_transformer
+  - override common@noise_scheduler: flow_noise_scheduler
+  - _self_
+

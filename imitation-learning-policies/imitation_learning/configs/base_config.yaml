@@ -1,0 +1,28 @@
+defaults:
+  - workspace/base_workspace
+  - _self_
+
+seed: 0
+device: cuda
+
+# Use - instead of _ so the yaml reader will not interpret the string as a number
+date_str: ${now:%Y-%m-%d}
+time_str: ${now:%H-%M-%S}
+
+# Should be overridden by `train_policy.yaml`
+project_name: ???
+logger_project_name: ???
+run_name: ???
+task_name: ???
+policy_name: ???
+train_server_name: ???
+
+hydra:
+  run:
+    dir: ${workspace.trainer.output_dir}
+
+base_ckpt_path: null
+base_ckpt_cfg_str: ""
+
+attach_vscode_debugger: false
+

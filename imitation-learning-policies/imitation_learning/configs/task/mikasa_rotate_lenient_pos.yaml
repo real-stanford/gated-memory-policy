@@ -1,0 +1,11 @@
+defaults:
+  - mikasa_remember_color_3
+  - _self_
+
+workspace:
+  model:
+    denoising_network_partial:
+      max_history_len: 45
+
+  train_dataset:
+    name: RotateLenientPos-v0

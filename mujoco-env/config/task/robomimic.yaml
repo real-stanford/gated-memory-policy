@@ -1,0 +1,14 @@
+defaults:
+  - env/robomimic
+  - base_task
+
+_target_: env.modules.tasks.robomimic_task.RobomimicTask
+
+name: robomimic
+env:
+  judge:
+    _target_: env.modules.judges.robomimic_judge.RobomimicJudge
+    prolong_after_success_s: 0.5
+    time_limit_s: ???
+
+successful_reward: 1.0

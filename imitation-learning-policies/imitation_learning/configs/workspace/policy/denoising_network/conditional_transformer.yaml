@@ -1,0 +1,9 @@
+_target_: imitation_learning.models.denoising_networks.conditional_transformer.ConditionalTransformer
+_partial_: True
+
+head_num: 8
+layer_num: 16
+hidden_dim: 512
+
+projector_type: mlp3x_gelu
+seed: ${seed}

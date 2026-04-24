@@ -1,0 +1,43 @@
+# This config file is for parameter overriding
+
+# task_name: ???
+
+# project_name: ???
+# logger_project_name: ???
+# run_name: ???
+# train_server_name: ???
+
+# statistics_path: ???
+# dataset_type: val
+
+# workspace:
+#   train_dataset:
+#     name: ${task_name}
+#     root_dir: ???
+#     compressed_dir: ???
+#     normalizer_dir: ???
+
+
+# task_name: ???
+
+# project_name: ???
+# logger_project_name: ???
+# run_name: ???
+train_server_name: localhost
+# policy_name: gate
+
+workspace:
+  train_dataset:
+    # name: ${task_name}
+    # root_dir: ???
+    # compressed_dir: ???
+    # normalizer_dir: ???
+    used_episode_ratio: 0.95
+    # statistics_data_path: ???
+    future_padding_length: 1
+    
+  model:
+    freeze_mlp: false
+    image_encoder:
+      frozen: false
+    ckpt_path: ""  

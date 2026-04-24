@@ -1,0 +1,81 @@
+defaults:
+  - robomimic
+  - _self_
+
+name: robomimic_square
+
+agent:
+  policy_obs_keys:
+    - robot0_eef_pos
+    - robot0_eef_quat
+    - robot0_gripper_qpos
+    - robot0_eye_in_hand_image
+    - agentview_image
+  robot_num: 1
+
+
+env:
+  judge:
+    time_limit_s: 25.0
+  env_meta: # Extracted from the robomimic dataset
+    env_kwargs:
+      camera_depths: false
+      camera_heights: 256
+      camera_names:
+      - agentview
+      - robot0_eye_in_hand
+      camera_widths: 256
+      control_freq: 20
+      controller_configs:
+        body_parts:
+          right:
+            control_delta: false # This is deprecated (only for ik controller, not for osc controller)
+            input_type: absolute
+            damping: 1
+            damping_limits:
+            - 0
+            - 10
+            gripper:
+              type: GRIP
+            impedance_mode: fixed
+            input_max: 1
+            input_min: -1
+            input_ref_frame: world
+            interpolation: null
+            kp: 150
+            kp_limits:
+            - 0
+            - 300
+            orientation_limits: null
+            output_max:
+            - 0.05
+            - 0.05
+            - 0.05
+            - 0.5
+            - 0.5
+            - 0.5
+            output_min:
+            - -0.05
+            - -0.05
+            - -0.05
+            - -0.5
+            - -0.5
+            - -0.5
+            position_limits: null
+            ramp_ratio: 0.2
+            type: OSC_POSE
+            uncouple_pos_ori: true
+        type: BASIC
+      has_offscreen_renderer: true
+      has_renderer: false
+      ignore_done: true
+      lite_physics: false
+      render_gpu_device_id: 0
+      reward_shaping: false
+      robots:
+      - Panda
+      use_camera_obs: true
+      use_object_obs: true
+    env_name: NutAssemblySquare
+    env_version: 1.5.1
+    type: 1

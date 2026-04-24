@@ -1,0 +1,18 @@
+_target_: real_env.controllers.ur5_cartesian.UR5Cartesian
+
+server_endpoint: tcp://localhost:16666
+robot_ip: 192.168.2.124
+logger_endpoint: tcp://localhost:55554
+robot_name: right_arm
+dynamic_latency_range_s: 1.0
+tcp_offset_pose: [0.0, 0.0, 0.234, 0.0, 0.0, 0.0] # For WSG50 + fin-ray gripper
+home_pose_xyz_wxyz: null # Different tasks may have different home poses. Should be specified in the task config
+
+ctrl_freq: 125.0
+gain: 300.0
+max_pos_speed_m_per_s: 4.5
+max_rot_speed_rad_per_s: 5.0
+lookahead_time_s: 0.1
+reset_time_s: 5.0
+traj_smooth_time_s: 0.0
+trim_new_trajectory_time_s: 0.09 # Slightly lower than 0.1

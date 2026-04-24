@@ -1,0 +1,13 @@
+_target_: real_env.peripherals.webcam.WebCam
+
+name: third_person_camera_1
+server_endpoint: tcp://localhost:16702
+logger_endpoint: tcp://localhost:55560
+camera_latency_s: 0.0
+camera_id: 4
+cam_img_format: MJPG
+width: 1920
+height: 1080
+fps: 30
+display_resolution_WH: [640, 360]
+# display_resolution_WH: null

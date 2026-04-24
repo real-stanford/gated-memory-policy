@@ -1,0 +1,15 @@
+defaults:
+  - pick_and_match_color
+  - _self_
+
+_target_: env.modules.tasks.pick_and_place_back.PickAndPlaceBack
+
+name: pick_and_match_color_rand_delay
+
+rand_delay_s_range: [5.0, 600.0]
+
+env:
+  judge:
+    time_limit_s: 700.0
+  ur5e:
+    camera_names: [] # Disable wrist camera

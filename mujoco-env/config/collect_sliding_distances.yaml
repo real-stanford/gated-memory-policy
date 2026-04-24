@@ -1,0 +1,31 @@
+defaults:
+  - task/push_cube
+  - task/agent/heuristic_agent@task.agent: push_cube
+  - _self_
+
+
+object_init_bin_ids: null
+
+task:
+  use_viewer: false
+  render_all_images: false
+  show_camera_images: false
+  data_storage_dir: data/collect_sliding_distances/${now:%Y-%m-%d_%H-%M-%S}_${run_name}
+
+  env:
+    judge:
+      total_trial_num: 1
+      continual_successful_trial_num: 0
+
+## For Push Cube
+run_name: mu_0_0025_to_0_025_delta_vel_0_001_repeat_1
+friction_min: 0.0025
+friction_max: 0.025
+# friction_num: 101
+friction_step: 0.0001
+delta_push_vel: 0.001
+delta_push_vel_num: 101
+repeat_num: 1
+
+mujoco_gl: egl
+parallel_workers: 40

@@ -1,0 +1,23 @@
+defaults:
+  - base_trainer
+  - ../env@rollout_env: remote_env
+  - _self_
+
+_target_: imitation_learning.trainers.policy_trainer.PolicyTrainer
+
+checkpoint_manager:
+  sort_key: "train/mean_loss"
+  keep_min: True
+
+finetune_keywords:
+  - shared_model_manager # Vision models
+  # - history_img_feature_encoder # For finetuning the last layer of siglip
+
+regular_keywords: [] # All parameters are regular by default. 
+# Only specify those covered by finetune_keywords if you want to use regular learning rate for them.
+
+skip_saving_keywords: [] # All parameters are saved by default. Only specify those you want to skip saving pretrained models
+keep_saving_keywords: [] # Keep saving some parameters subsets although if they are covered by skip_saving_keywords
+rollout_every: 0 # Not rollout by default. This avoid the training process being interrupted by rollout crashes
+memory_gate_loss_weight: 0.0
+critical_action_loss_weights: [0.0] # Not introducing critical action loss for fairness (only used to debug)

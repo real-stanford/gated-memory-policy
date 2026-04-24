@@ -1,0 +1,7 @@
+defaults:
+  - mikasa_remember_color_3
+  - _self_
+
+workspace:
+  train_dataset:
+    name: RememberShapeAndColor3x3-v0

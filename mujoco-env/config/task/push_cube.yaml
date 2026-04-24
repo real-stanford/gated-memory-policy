@@ -1,0 +1,86 @@
+defaults:
+  - env/table_lines_1robot_1cube
+  - base_task
+  - _self_
+_target_: env.modules.tasks.push_cube.PushCube
+
+name: push_cube
+successful_reward: 1.0
+
+env:
+  ur5e:
+    gripper_mjcf_path: env/assets/robots/wsg50/wsg50_with_box.xml
+    camera_names: []
+  cube: # To make the cube more distinguishable
+    color: [0.2, 0.2, 1.0, 1.0]
+  judge:
+    _target_: env.modules.judges.push_cube_judge.PushCubeJudge
+    prolong_after_success_s: 1.0
+    time_limit_s: 20.0
+    target_pos_xy: [0.1, 0.15]
+    init_pos_xy: [0.1, -0.7]
+    center_tolerance_m: 0.05
+    object_stable_threshold_m_per_s: 0.0001
+    total_trial_num: 6
+    continual_successful_trial_num: 3
+
+
+sliding_friction_min: 0.005
+sliding_friction_max: 0.015
+
+
+# Calculated through "scripts/analyze_sliding_distances.py"
+sampled_vels_m_per_s:
+  - 0.247
+  - 0.26043
+  - 0.27386
+  - 0.28729
+  - 0.30071
+  - 0.31414
+  - 0.32757
+  - 0.341
+  - 0.35443
+  - 0.36786
+  - 0.38129
+  - 0.39471
+  - 0.40814
+  - 0.42157
+  - 0.435
+  
+  
+# Calculated through "scripts/analyze_sliding_distances.py"
+sampled_sliding_frictions:
+  - 0.005
+  - 0.0055
+  - 0.0061
+  - 0.0067
+  - 0.0073
+  - 0.008
+  - 0.0087
+  - 0.0094
+  - 0.0101
+  - 0.0109
+  - 0.0116
+  - 0.0125
+  - 0.0133
+  - 0.0141
+  - 0.015
+
+agent:
+  policy_obs_keys: 
+    - "robot0_tcp_xyz_wxyz"
+    - "robot0_gripper_width"
+    - "third_person_camera"
+  robot_num: 1
+  movement_constraints: ["y"]
+  default_actions: 
+   - [0.1, -0.73, 0.365, 0.707, -0.707, 0.0, 0.0]
+  move_gripper: false
+  default_gripper_widths: [0.08]
+  smoothen_action_weight: 0.2
+
+viewer_cam_init_kwargs:
+  lookat: [0.0, -0.3, 0.0]
+  distance: 2.5749473207039935
+  azimuth: -180
+  elevation: -43.69239631336405

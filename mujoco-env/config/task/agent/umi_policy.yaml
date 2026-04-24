@@ -1,0 +1,12 @@
+_target_: env.modules.agents.manipulation_policy_umi_agent.ManipulationPolicyUmiAgent
+
+policy_server_address: "tcp://localhost:18766"
+robot_num: 1
+agent_update_freq_hz: 10
+action_prediction_horizon: 16
+action_execution_horizon: 8
+obs_history_len: 2
+action_history_len: 0
+image_obs_frames_ids: [-2, -1]
+proprio_obs_frames_ids: [-2, -1]
+policy_obs_keys: ???

@@ -1,0 +1,16 @@
+upload
+data
+slurm_data
+debug_images
+*egg-info
+__pycache__
+outputs
+wandb/
+slurm_logs
+results
+robomimic_tool_hang_ph
+tests/test_data
+*.pdf
+*.svg
+mikasa_data/*
+eval_output/*

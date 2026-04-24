@@ -1,0 +1,28 @@
+defaults:
+  - umi_single_traj
+  - _self_
+
+_target_: imitation_learning.datasets.multi_task_dataset.MultiTaskDataset
+
+sub_dataset_target: imitation_learning.datasets.umi_dataset.UMISingleTrajDataset
+
+name: umi_multi_task_single_traj
+dataset_names: ??? # Should be overridden
+
+dataset_configs:
+  umi/cup_arrangement_0:
+    sample_ratio: 1.0
+  data_scaling_law/mouse_arrangement_0:
+    sample_ratio: 1.0
+  data_scaling_law/mouse_arrangement_1:
+    sample_ratio: 1.0
+  data_scaling_law/towel_folding_0:
+    sample_ratio: 1.0
+  data_scaling_law/charger_unplugging_0:
+    sample_ratio: 1.0
+  data_scaling_law/water_pouring_0:
+    sample_ratio: 1.0
+  data_scaling_law/water_pouring_1:
+    sample_ratio: 1.0
+
+normalizer_dir: 

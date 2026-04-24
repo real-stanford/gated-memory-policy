@@ -1,0 +1,187 @@
+<mujoco model="table_bin">
+  <visual>
+    <headlight diffuse="0.3 0.3 0.3" ambient="0.2 0.2 0.2" specular="0 0 0"/>
+  </visual>
+  <asset>
+    <texture builtin="gradient" height="256" rgb1=".9 .9 1." rgb2=".2 .3 .4" type="skybox"
+      width="256" />
+    <texture file="../textures/light-gray-floor-tile.png" type="2d" name="texplane" />
+    <material name="floorplane" reflectance="0.01" shininess="0.0" specular="0.0" texrepeat="2 2"
+      texture="texplane" texuniform="true" />
+    <!-- steel legs -->
+    <texture file="../textures/steel-brushed.png" type="cube" name="tex-steel-brushed" />
+    <material name="table_legs_metal" reflectance="0.8" shininess="0.8" texrepeat="1 1"
+      texture="tex-steel-brushed" />
+    <!-- plaster walls -->
+    <texture file="../textures/light-gray-plaster.png" type="2d" name="tex-light-gray-plaster" />
+    <material name="walls_mat" reflectance="0.0" shininess="0.1" specular="0.1" texrepeat="3 3"
+      texture="tex-light-gray-plaster" texuniform="true" />
+    <!-- bins -->
+    <texture file="../textures/light-wood.png" type="2d" name="tex-light-wood" />
+    <texture file="../textures/dark-wood.png" type="2d" name="tex-dark-wood" />
+    <material name="light-wood" reflectance="0" texrepeat="15 15" texture="tex-light-wood"
+      texuniform="true" />
+    <material name="dark-wood" reflectance="0" texrepeat="5 5" texture="tex-dark-wood"
+      texuniform="true" />
+
+    <!-- bin textures -->
+
+    <!-- <texture file="../textures/can.png" type="2d" name="texture_1" />
+    <material name="material_1" reflectance="0" texrepeat="15 15" texture="texture_1"
+      texuniform="true" /> -->
+    <!-- <texture file="../textures/cereal.png" type="2d" name="texture_2" />
+    <material name="material_2" reflectance="0" texrepeat="15 15" texture="texture_2"
+      texuniform="true" /> -->
+
+    <texture file="../textures/yellow-plaster.png" type="2d" name="texture_1" />
+    <material name="material_1" reflectance="0" texrepeat="15 15" texture="texture_1"
+      texuniform="true" />
+    <texture file="../textures/brass-ambra.png" type="2d" name="texture_2" />
+    <material name="material_2" reflectance="0" texrepeat="15 15" texture="texture_2"
+      texuniform="true" />
+    <texture file="../textures/metal.png" type="2d" name="texture_3" />
+    <material name="material_3" reflectance="0" texrepeat="15 15" texture="texture_3"
+      texuniform="true" />
+    <texture file="../textures/wood-varnished-panels.png" type="2d" name="texture_4" />
+    <material name="material_4" reflectance="0" texrepeat="15 15" texture="texture_4"
+      texuniform="true" />
+
+
+  </asset>
+  <worldbody>
+    <light name="spotlight_1" mode="targetbody" pos="0 0 3" dir="0 0 -1" cutoff="50.0" exponent="20" diffuse="0.2 0.2 0.2"/>
+    
+    <geom condim="3" group="1" material="floorplane" name="floor" pos="0 0 0" size="3 3 .125"
+      type="plane" />
+    <!-- Walls (visual only) -->
+    <geom pos="-1.25 2.25 1.5" quat="0.6532815 0.6532815 0.2705981 0.2705981" size="1.06 1.5 0.01"
+      type="box" conaffinity="0" contype="0" group="1" name="wall_leftcorner_visual"
+      material="walls_mat" />
+    <geom pos="-1.25 -2.25 1.5" quat="0.6532815 0.6532815 -0.2705981 -0.2705981"
+      size="1.06 1.5 0.01" type="box" conaffinity="0" contype="0" group="1"
+      name="wall_rightcorner_visual" material="walls_mat" />
+    <geom pos="1.25 3 1.5" quat="0.7071 0.7071 0 0" size="1.75 1.5 0.01" type="box" conaffinity="0"
+      contype="0" group="1" name="wall_left_visual" material="walls_mat" />
+    <geom pos="1.25 -3 1.5" quat="0.7071 -0.7071 0 0" size="1.75 1.5 0.01" type="box"
+      conaffinity="0" contype="0" group="1" name="wall_right_visual" material="walls_mat" />
+    <geom pos="-2 0 1.5" quat="0.5 0.5 0.5 0.5" size="1.5 1.5 0.01" type="box" conaffinity="0"
+      contype="0" group="1" name="wall_rear_visual" material="walls_mat" />
+    <geom pos="3 0 1.5" quat="0.5 0.5 -0.5 -0.5" size="3 1.5 0.01" type="box" conaffinity="0"
+      contype="0" group="1" name="wall_front_visual" material="walls_mat" />
+    
+    <body name="robot_support" pos="0.9 0.28 0.0">
+      <geom pos="0 0 0.1" size="0.1 0.1 0.1" type="box" group="0" friction="1 0.005 0.0001" />
+      <geom pos="0 0 0.1" material="floorplane" size="0.1 0.1 0.1" type="box" conaffinity="0"
+        contype="0" group="1" />
+    </body>
+      
+    <!-- bins -->
+    <!-- <body name="bin1" pos="0.1 -0.25 0.2">
+      <geom pos="0 0 0" size="0.2 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001" />
+      <geom pos="0 0 0" material="light-wood" size="0.2 0.25 0.02" type="box" conaffinity="0"
+        contype="0" group="1" />
+      <geom pos="0 0.25 0.02" size="0.21 0.01 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="0 0 1 1" />
+      <geom pos="0 0.25 0.02" size="0.21 0.01 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="light-wood" />
+      <geom pos="0 -0.25 0.02" size="0.21 0.01 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="0 0 1 1" />
+      <geom pos="0 -0.25 0.02" size="0.21 0.01 0.02" type="box" conaffinity="0" contype="0"
+        group="1" material="light-wood" />
+      <geom pos="0.2 0 0.02" size="0.01 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="0 0 1 1" />
+      <geom pos="0.2 0 0.02" size="0.01 0.25 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="light-wood" />
+      <geom pos="-0.2 0 0.02" size="0.01 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="0 0 1 1" />
+      <geom pos="-0.2 0 0.02" size="0.01 0.25 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="light-wood" />
+      
+      <geom pos="0.15 0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin1_leg1_visual" material="table_legs_metal" />
+      <geom pos="-0.15 0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin1_leg2_visual" material="table_legs_metal" />
+      <geom pos="-0.15 -0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin1_leg3_visual" material="table_legs_metal" />
+      <geom pos="0.15 -0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin1_leg4_visual" material="table_legs_metal" />
+    </body> -->
+    <body name="bin2" pos="0.1 0.28 0.2">
+      <geom pos="0 0 0" size="0.2 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001" />
+      <geom pos="0 0 0" size="0.2 0.25 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="dark-wood" />
+      <!-- different bin colors -->
+      <geom name="bin_0_material" pos="-0.1 0.125 0.02002" size="0.1 0.125 0.0002" type="box"
+        rgba="0 0 0 0" />
+      <geom name="bin_1_material" pos="-0.1 -0.125 0.02002" size="0.1 0.125 0.0002" type="box"
+        rgba="0 0 0 0" />
+      <geom name="bin_2_material" pos="0.1 -0.125 0.02002" size="0.1 0.125 0.0002" type="box"
+        rgba="0 0 0 0" />
+      <geom name="bin_3_material" pos="0.1 0.125 0.02002" size="0.1 0.125 0.0002" type="box"
+        rgba="0 0 0 0" />
+
+      <geom pos="0 0.25 0.02" size="0.21 0.01 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="1 0 0 1" />
+      <geom pos="0 0.25 0.02" size="0.21 0.01 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="dark-wood" />
+      <geom pos="0 0 0.02" size="0.2 0.01 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="1 0 0 1" />
+      <geom pos="0 0 0.02" size="0.2 0.01 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="dark-wood" />
+      <geom pos="0 -0.25 0.02" size="0.21 0.01 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="1 0 0 1" />
+      <geom pos="0 -0.25 0.02" size="0.21 0.01 0.02" type="box" conaffinity="0" contype="0"
+        group="1" material="dark-wood" />
+      <geom pos="0.2 0 0.02" size="0.01 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="1 0 0 1" />
+      <geom pos="0.2 0 0.02" size="0.01 0.25 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="dark-wood" />
+      <geom pos="0 0 0.02" size="0.01 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="1 0 0 1" />
+      <geom pos="0 0 0.02" size="0.01 0.25 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="dark-wood" />
+      <geom pos="-0.2 0 0.02" size="0.01 0.25 0.02" type="box" group="0" friction="1 0.005 0.0001"
+        rgba="1 0 0 1" />
+      <geom pos="-0.2 0 0.02" size="0.01 0.25 0.02" type="box" conaffinity="0" contype="0" group="1"
+        material="dark-wood" />
+      <!-- Legs (visual only) -->
+      <geom pos="0.15 0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin2_leg1_visual" material="table_legs_metal" />
+      <geom pos="-0.15 0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin2_leg2_visual" material="table_legs_metal" />
+      <geom pos="-0.15 -0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin2_leg3_visual" material="table_legs_metal" />
+      <geom pos="0.15 -0.2 -0.1" size="0.01 0.1" type="cylinder" conaffinity="0" contype="0"
+        group="1" name="bin2_leg4_visual" material="table_legs_metal" />
+    </body>
+
+
+    <!-- <light pos="1.0 1.0 1.5" dir="-0.2 -0.2 -1" specular="0.3 0.3 0.3" directional="true"
+      castshadow="false" /> -->
+    <!-- Uniform lighting from multiple directions -->
+    <light diffuse="1.0 1.0 1.0" pos="0 0 3" castshadow="false" />
+    <light diffuse="1.0 1.0 1.0" pos="3 0 3" castshadow="false" />
+    <light diffuse="1.0 1.0 1.0" pos="-3 0 3" castshadow="false" />
+    <light diffuse="1.0 1.0 1.0" pos="0 3 3" castshadow="false" />
+    <light diffuse="1.0 1.0 1.0" pos="0 -3 3" castshadow="false" />
+    <!-- front view -->
+    <camera mode="fixed" name="frontview" pos="1.6 0 1.45" quat="0.56 0.43 0.43 0.56" />
+
+    <!-- <camera mode="fixed" name="third_person_camera" pos="-0.684 0.266 0.585"
+      xyaxes="0.002 -1.000 -0.000 0.391 0.001 0.920" /> -->
+
+    <camera mode="fixed" name="third_person_camera" pos="-0.151 0.280 0.754"
+      xyaxes="-0.004 -1.000 0.000 0.926 -0.004 0.377" />
+
+    <!-- bird view -->
+    <camera mode="fixed" name="birdview" pos="0.2 0 1.5" quat="0.7071 0 0 0.7071" />
+    <!-- agent view -->
+    <camera mode="fixed" name="agentview" pos="1.0 0 1.75" quat="0.653 0.271 0.271 0.653" />
+    <!-- side view -->
+    <!-- <camera mode="fixed" name="visualization_camera" pos="-0.839 -0.768 1.032" xyaxes="0.607 -0.794 0.000 0.345 0.264 0.901"/> -->
+    <camera mode="fixed" name="visualization_camera" pos="-0.241 1.307 1.054" xyaxes="-0.879 -0.478 -0.000 0.240 -0.442 0.864"/>
+
+
+  </worldbody>
+</mujoco>
+  

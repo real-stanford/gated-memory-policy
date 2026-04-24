@@ -1,0 +1,12 @@
+_target_: imitation_learning.models.common.noise_scheduler.DDIMNoiseScheduler
+
+train_step_num: 24
+inference_step_num: 8
+
+beta_start: 0.0001
+beta_end: 0.02
+beta_schedule: squaredcos_cap_v2
+clip_sample: True
+set_alpha_to_one: True
+steps_offset: 0
+prediction_type: sample

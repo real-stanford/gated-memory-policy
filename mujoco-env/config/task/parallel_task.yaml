@@ -1,0 +1,10 @@
+defaults:
+  - agent/policy_parallel
+  - _self_
+
+env_num: ???
+render_image_indices: [-1] # Should be defined in the agent config
+data_storage_dir: ???
+name: ???
+env: ???
+

@@ -1,0 +1,7 @@
+defaults:
+  - pick_and_place_back
+  - _self_
+
+_target_: env.modules.agents.heuristic_agents.pick_and_place_back_agent.PickAndPlaceBackAgent
+
+match_bin_material: true

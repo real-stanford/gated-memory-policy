@@ -1,0 +1,7 @@
+_target_: imitation_learning.envs.remote_env.RemoteEnv
+
+server_endpoint: "tcp://localhost:18765"
+train_server_name: ${train_server_name}
+
+run_name: ${run_name}
+time_tag: ${date_str}-${time_str}

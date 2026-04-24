@@ -1,0 +1,26 @@
+defaults:
+  # - policy/??? # Config will be loaded in `config_utils.compose_hydra_config`
+  # - dataset@train_dataset: ??? # Config will be loaded in `data_utils.compose_hydra_config`
+  - trainer/policy_trainer
+  - ema_model@ema_partial: ema_model
+  - _self_
+
+_target_: imitation_learning.workspaces.base_workspace.BaseWorkspace
+
+logging_cfg:
+  project: ${logger_project_name}
+  resume: False
+  mode: online
+  name: ${run_name} # Should be set in the outmost config file
+  tags: ["${project_name}", "${task_name}"]
+  id: null
+  group: null
+
+trainer:
+  output_dir: data/${task_name}/${date_str}/${time_str}_${run_name}
+
+cfg_str_unresolved: null
+name: ??? # Should be {task_name}_{policy_name}
+
+train_dataset:
+  name: ${task_name}

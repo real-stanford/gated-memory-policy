@@ -1,0 +1,18 @@
+_target_: real_env.agents.policy_agent.PolicyAgent
+
+name: umi
+robot_num: 1
+agent_update_freq_hz: 10
+action_prediction_horizon: 16
+action_execution_horizon: 8
+image_history_len: 1
+
+# Will be automatically parsed from the policy config
+# proprio_history_len: 2 # This number should be one step longer than the policy proprio_len: the latest state will be used to calculate relative pose
+# action_history_len: 2 # Same as this one if `action_as_proprio` is true
+
+policy_server_endpoint: tcp://localhost:18765
+keep_one_step_dummy_proprio: false
+action_as_proprio: true
+use_relative_action: true
+smooth_action_window_size: 1 # Don't smooth actions

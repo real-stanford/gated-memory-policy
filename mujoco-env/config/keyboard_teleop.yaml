@@ -1,0 +1,16 @@
+defaults:
+  - scenes/table_bin
+  - robots@robots.ur5e: ur5e_wsg50_finray
+  - _self_
+
+robot_base_poses_xyz_wxyz:
+  - [0.6, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+
+robot_list:
+  - ${robots.ur5e}
+
+obj_mjcf_paths:
+  - env/assets/objects/can.xml
+
+obj_poses_xyz_wxyz:
+  - [0.05, 0.14, 0.4, 1.0, 0.0, 0.0, 0.0]

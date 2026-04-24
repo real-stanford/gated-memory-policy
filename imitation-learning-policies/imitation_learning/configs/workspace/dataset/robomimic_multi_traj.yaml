@@ -1,0 +1,29 @@
+defaults:
+  - robomimic_single_traj
+  - _self_
+
+_target_: imitation_learning.datasets.robomimic_dataset.RobomimicMultiTrajDataset
+
+# traj_num: ${eval:"${workspace.model.denoising_network_partial.max_history_len}+1"}
+traj_num: ??? # To better match the inference time (history should be full after the first max_history_len trajectories)
+traj_interval_min: 8
+traj_interval_max: 8
+
+index_pool_size_per_episode: 100
+
+dataloader_cfg:
+  # batch_size: ${cond:${in:${policy_name},large},1,2} # For finetuning including the non-history modules. The actual batch size is 2 * 64 (traj_num) = 128
+  batch_size: ${cond:${in:${policy_name},large},1,${cond:${in:${policy_name},rnn},4,2}} # For finetuning including the non-history modules. The actual batch size is 2 * 64 (traj_num) = 128
+
+
+starting_percentile_max: 1.0
+
+split_dataloader_cfg:
+  batch_size: 16
+  num_workers: 12
+  pin_memory: true
+  persistent_workers: true
+  shuffle: false
+  prefetch_factor: 1
+
+repeat_dataset_num: 1 # How many times to repeat the dataset. Multi-traj dataset is comsumed much slower than single-traj dataset.

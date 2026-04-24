@@ -1,0 +1,11 @@
+_target_: imitation_learning.models.denoising_networks.conditional_unet_1d.ConditionalUnet1D
+_partial_: True
+
+diffusion_step_embed_dim: 128
+down_sample_channel_nums: [256, 512, 1024]
+kernel_size: 5
+group_num: 8
+cond_predict_scale: True
+
+local_cond_dim: 0
+local_cond_token_num: 0

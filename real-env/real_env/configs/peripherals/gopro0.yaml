@@ -1,0 +1,16 @@
+_target_: real_env.peripherals.webcam.WebCam
+
+name: right_wrist_camera_0
+server_endpoint: tcp://localhost:16700
+logger_endpoint: tcp://localhost:55555
+camera_latency_s: 0.10
+camera_id: 0
+cam_img_format: NV12
+display_resolution_WH: [224, 224]
+# display_resolution_WH: null
+camera_configs:
+  main:
+    type: rgb
+    width: 1920
+    height: 1080
+    fps: 30

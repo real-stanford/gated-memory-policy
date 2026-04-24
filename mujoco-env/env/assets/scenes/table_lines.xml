@@ -1,0 +1,145 @@
+<mujoco model="table_lines">
+    <asset>
+        <texture builtin="gradient" height="256" rgb1=".9 .9 1." rgb2=".2 .3 .4" type="skybox"
+            width="256" />
+        <texture file="../textures/light-gray-floor-tile.png" type="2d" name="texplane" />
+        <material name="floorplane" reflectance="0.01" shininess="0.0" specular="0.0"
+            texrepeat="2 2"
+            texture="texplane" texuniform="true" />
+        <!-- steel legs -->
+        <texture file="../textures/steel-brushed.png" type="cube" name="tex-steel-brushed" />
+        <material name="table_legs_metal" reflectance="0.8" shininess="0.8" texrepeat="1 1"
+            texture="tex-steel-brushed" />
+        <!-- plaster walls -->
+        <texture file="../textures/light-gray-plaster.png" type="2d" name="tex-light-gray-plaster" />
+        <material name="walls_mat" reflectance="0.0" shininess="0.1" specular="0.1" texrepeat="3 3"
+            texture="tex-light-gray-plaster" texuniform="true" />
+        <!-- bins -->
+        <texture file="../textures/light-wood.png" type="2d" name="tex-light-wood" />
+        <texture file="../textures/dark-wood.png" type="2d" name="tex-dark-wood" />
+        <material name="light-wood" reflectance="0" texrepeat="15 15" texture="tex-light-wood"
+            texuniform="true" />
+        <material name="dark-wood" reflectance="0" texrepeat="5 5" texture="tex-dark-wood"
+            texuniform="true" />
+    </asset>
+    <worldbody>
+        <geom condim="3" group="1" material="floorplane" name="floor" pos="0 0 0" size="3 3 .125"
+            type="plane" />
+        <!-- Walls (visual only) -->
+        <geom pos="-1.25 2.25 1.5" quat="0.6532815 0.6532815 0.2705981 0.2705981"
+            size="1.06 1.5 0.01"
+            type="box" conaffinity="0" contype="0" group="1" name="wall_leftcorner_visual"
+            material="walls_mat" />
+        <geom pos="-1.25 -2.25 1.5" quat="0.6532815 0.6532815 -0.2705981 -0.2705981"
+            size="1.06 1.5 0.01" type="box" conaffinity="0" contype="0" group="1"
+            name="wall_rightcorner_visual" material="walls_mat" />
+        <geom pos="1.25 3 1.5" quat="0.7071 0.7071 0 0" size="1.75 1.5 0.01" type="box"
+            conaffinity="0"
+            contype="0" group="1" name="wall_left_visual" material="walls_mat" />
+        <geom pos="1.25 -3 1.5" quat="0.7071 -0.7071 0 0" size="1.75 1.5 0.01" type="box"
+            conaffinity="0" contype="0" group="1" name="wall_right_visual" material="walls_mat" />
+        <geom pos="-2 0 1.5" quat="0.5 0.5 0.5 0.5" size="1.5 1.5 0.01" type="box" conaffinity="0"
+            contype="0" group="1" name="wall_rear_visual" material="walls_mat" />
+        <geom pos="3 0 1.5" quat="0.5 0.5 -0.5 -0.5" size="3 1.5 0.01" type="box" conaffinity="0"
+            contype="0" group="1" name="wall_front_visual" material="walls_mat" />
+        <!-- bins -->
+        <body name="table" pos="0.1 0.0 0.3">
+            <!-- Friction: as low as possible -->
+            <geom pos="0 -0.05 0" size="0.2 0.70 0.02" type="box" group="0"
+                friction="0.000001 0.000001 0.000001" />
+            <geom pos="0 -0.05 0" material="light-wood" size="0.2 0.70 0.02" type="box"
+                conaffinity="0" contype="0" group="1" />
+            <!-- Create a slot at the end of the table to prevent the cube from bouncing back -->
+            <geom pos="0 0.70 -0.005" size="0.2 0.05 0.015" type="box" group="0"
+                friction="0.000001 0.000001 0.000001" />
+            <geom pos="0 0.70 -0.005" material="light-wood" size="0.2 0.05 0.015" type="box"
+                conaffinity="0" contype="0" group="1" />
+            <geom pos="0 0.75 0.02" size="0.21 0.01 0.02" type="box" group="0"
+                friction="1 0.005 0.0001"
+                rgba="0 0 1 1" />
+            <geom pos="0 0.75 0.02" size="0.21 0.01 0.02" type="box" conaffinity="0" contype="0"
+                group="1"
+                material="light-wood" />
+            <!-- <geom pos="0 -0.75 0.02" size="0.21 0.01 0.02" type="box" group="0"
+                friction="1 0.005 0.0001"
+                rgba="0 0 1 1" />
+            <geom pos="0 -0.75 0.02" size="0.21 0.01 0.02" type="box" conaffinity="0" contype="0"
+                group="1" material="light-wood" /> -->
+            <geom pos="0.2 0 0.02" size="0.01 0.75 0.02" type="box" group="0"
+                friction="1 0.005 0.0001"
+                rgba="0 0 1 1" />
+            <geom pos="0.2 0 0.02" size="0.01 0.75 0.02" type="box" conaffinity="0" contype="0"
+                group="1"
+                material="light-wood" />
+            <geom pos="-0.2 0 0.02" size="0.01 0.75 0.02" type="box" group="0"
+                friction="1 0.005 0.0001"
+                rgba="0 0 1 1" />
+            <geom pos="-0.2 0 0.02" size="0.01 0.75 0.02" type="box" conaffinity="0" contype="0"
+                group="1"
+                material="light-wood" />
+            <!-- Legs (visual only) -->
+            <geom pos="0.15 0.6 -0.15" size="0.01 0.15" type="cylinder" conaffinity="0" contype="0"
+                group="1" name="bin1_leg1_visual" material="table_legs_metal" />
+            <geom pos="-0.15 0.6 -0.15" size="0.01 0.15" type="cylinder" conaffinity="0" contype="0"
+                group="1" name="bin1_leg2_visual" material="table_legs_metal" />
+            <geom pos="-0.15 -0.6 -0.15" size="0.01 0.15" type="cylinder" conaffinity="0"
+                contype="0" group="1" name="bin1_leg3_visual" material="table_legs_metal" />
+            <geom pos="0.15 -0.6 -0.15" size="0.01 0.15" type="cylinder" conaffinity="0" contype="0"
+                group="1" name="bin1_leg4_visual" material="table_legs_metal" />
+
+            <!-- Lines (visual only) -->
+            <geom name="middle_line" pos="0 -0.45 0.02" size="0.2 0.01 0.0001" type="box" group="1"
+                contype="0" conaffinity="0" rgba="0 0 0 1" />
+            <!-- 2D Box: relative_center: (0, 0.3), absolute_center: (0.1, 0.3, 0.3), 
+            size: (0.1, 0.1), width: (0.01, 0.01)-->
+            <!-- <geom name="box_line_0" pos="0 0.21 0.02" size="0.07 0.01 0.0001" type="box"
+            group="1"
+                contype="0" conaffinity="0" rgba="1 0 0 1" />
+            <geom name="box_line_1" pos="0 0.09 0.02" size="0.07 0.01 0.0001" type="box" group="1"
+                contype="0" conaffinity="0" rgba="1 0 0 1" />
+            <geom name="box_line_2" pos="0.06 0.15 0.02" size="0.01 0.07 0.0001" type="box"
+                group="1" contype="0" conaffinity="0" rgba="1 0 0 1" />
+            <geom name="box_line_3" pos="-0.06 0.15 0.02" size="0.01 0.07 0.0001" type="box"
+                group="1" contype="0" conaffinity="0" rgba="1 0 0 1" /> -->
+
+            <!-- 2D Box: relative_center: (0, 0.3), absolute_center: (0.1, 0.3, 0.3), 
+            size: (0.1, 0.1), width: (0.01, 0.01)-->
+            <geom name="box_line_0" pos="0 0.235 0.02" size="0.095 0.01 0.0001" type="box" group="1"
+                contype="0" conaffinity="0" rgba="1 0 0 1" />
+            <geom name="box_line_1" pos="0 0.065 0.02" size="0.095 0.01 0.0001" type="box" group="1"
+                contype="0" conaffinity="0" rgba="1 0 0 1" />
+            <geom name="box_line_2" pos="0.085 0.15 0.02" size="0.01 0.095 0.0001" type="box"
+                group="1" contype="0" conaffinity="0" rgba="1 0 0 1" />
+            <geom name="box_line_3" pos="-0.085 0.15 0.02" size="0.01 0.095 0.0001" type="box"
+                group="1" contype="0" conaffinity="0" rgba="1 0 0 1" />
+
+        </body>
+
+        <!-- <light pos="1.0 1.0 1.5" dir="-0.2 -0.2 -1" specular="0.3 0.3 0.3" directional="true"
+      castshadow="false" /> -->
+        <!-- Uniform lighting from multiple directions -->
+        <light diffuse="1.0 1.0 1.0" pos="0 0 3" castshadow="false" />
+        <light diffuse="1.0 1.0 1.0" pos="3 0 3" castshadow="false" />
+        <light diffuse="1.0 1.0 1.0" pos="-3 0 3" castshadow="false" />
+        <light diffuse="1.0 1.0 1.0" pos="0 3 3" castshadow="false" />
+        <light diffuse="1.0 1.0 1.0" pos="0 -3 3" castshadow="false" />
+        <!-- front view -->
+        <camera mode="fixed" name="frontview" pos="1.6 0 1.45" quat="0.56 0.43 0.43 0.56" />
+        <!-- bird view -->
+        <camera mode="fixed" name="birdview" pos="0.2 0 1.5" quat="0.7071 0 0 0.7071" />
+        <camera mode="fixed" name="third_person_camera" pos="0.089 -0.826 1.875"
+            xyaxes="1.000 -0.000 -0.000 0.000 0.911 0.413" />
+
+        <camera mode="fixed" name="zoom_in_camera" pos="0.1 0.15 0.6" xyaxes="1.000 0.001 0.000 -0.001 1.000 0.020"/>
+
+        <!-- agent view -->
+        <!-- <camera mode="fixed" name="agentview" pos="1.0 0 1.75" quat="0.653 0.271 0.271 0.653" /> -->
+        <!-- <camera mode="fixed" name="visualization_camera" pos="2.517 -0.303 1.351" xyaxes="0.000 1.000 -0.000 -0.423 0.000 0.906"/> -->
+        <!-- <camera mode="fixed" name="visualization_camera" pos="1.001 -0.411 0.857" xyaxes="0.007 1.000 0.000 -0.563 0.004 0.827"/> -->
+        <camera mode="fixed" name="visualization_camera" pos="1.2 -0.35 1.502" xyaxes="-0.000 1.000 0.000 -0.769 -0.000 0.639"/>
+
+
+
+    </worldbody>
+</mujoco>
+  

@@ -1,0 +1,15 @@
+defaults:
+  - rollout_policy
+
+task:
+  env:
+    scene:
+      cameras:
+        visualization_camera: [640, 480]
+
+# For shooting videos
+# episode_num: 1
+# start_seed: 10008
+
+episode_num: 5
+start_seed: 10000

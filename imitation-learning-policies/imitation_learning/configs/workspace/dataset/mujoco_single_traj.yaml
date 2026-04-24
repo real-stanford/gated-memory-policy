@@ -1,0 +1,177 @@
+_target_: imitation_learning.datasets.mujoco_dataset.MujocoSingleTrajDataset
+
+root_dir: ???
+name: ???
+compressed_dir: "" # Should be overridden if need to extract the dataset from a compressed file
+robot_num: ???
+
+include_episode_num: -1 # To specify how many episodes to include. -1 means using all episodes.
+include_episode_indices: [] # If not empty, will override used_episode_ratio
+used_episode_ratio: 0.98 # How many episodes are used for training
+random_split_dataset: true # If false, will not use random split for the dataset
+history_padding_length: ${workspace.model.history_padding_length}
+future_padding_length: 16
+starting_percentile_max: 1.0
+starting_percentile_min: 0.0
+index_pool_size_per_episode: -1 # Use all indices
+seed: ${seed}
+use_relative_pose: false
+use_relative_gripper_width: false
+# normalizer_sample_num: -1 # Use all data
+normalizer_sample_num: -1
+normalizer_dir: ???
+repeat_dataset_num: ??? # How many times to repeat the dataset. This will avoid the dataset being consumed too fast and the reload time being too long.
+down_sample_steps: 1
+
+
+image_keys: ["third_person_camera"]
+proprio_keys: ["robot0_10d"] # Should be overridden if there are multiple proprio keys
+action_keys: ["action0_10d"] # Should be overridden if there are multiple action keys
+
+apply_image_augmentation_in_cpu: true
+source_data_meta:
+  # robot0_wrist_camera:
+  #   include_indices: [0]
+  #   # include_indices: [0, 16] # For future_0_wrist_camera
+  #   shape: [256, 256, 3]
+
+  robot0_tcp_xyz_wxyz:
+    name: robot0_tcp_xyz_wxyz
+    include_indices: ${workspace.model.proprio_indices}
+    # including -1 so it can be used to calculate relative pose
+    shape: [7]
+
+  robot0_gripper_width:
+    name: robot0_gripper_width
+    include_indices: ${workspace.model.proprio_indices}
+    shape: [1]
+
+  third_person_camera:
+    name: third_person_camera
+    include_indices: ${workspace.model.image_indices}
+    shape: [256, 256, 3]
+
+  # zoom_in_camera:
+  #   include_indices: [0]
+  #   shape: [256, 256, 3]
+
+  action0_tcp_xyz_wxyz:
+    name: action0_tcp_xyz_wxyz
+    include_indices: ${workspace.model.action_indices} 
+    # including -1 so it can be used to calculate relative action
+    shape: [7]
+
+  action0_gripper_width:
+    name: action0_gripper_width
+    include_indices: ${workspace.model.action_indices}
+    shape: [1]
+
+
+output_data_meta:
+  # robot0_wrist_camera:
+  #   data_type: image
+  #   length: 1
+  #   normalizer: identity # Normalization should be done in the observation encoder according to the model
+  #   augmentation: 
+  #     - name: RandomCrop
+  #       size: [208, 208]
+  #       p: 0.5
+  #     - name: Resize
+  #       size: [256, 256]
+  #       antialias: True
+  #     # - name: ColorJitter
+  #     #   brightness: 0.3
+  #     #   contrast: 0.4
+  #     #   saturation: 0.5
+  #     #   hue: 0.08
+  #     #   p: 0.5
+  #     # - name: RandomSharpness
+  #     #   sharpness: 2
+  #     #   p: 0.5
+  #     # - name: RandomGaussianBlur
+  #     #   kernel_size: [5, 5]
+  #     #   sigma: [0.1, 2.0]
+  #     #   p: 0.5
+  #     # - name: RandomAutoContrast
+  #     #   p: 0.5
+
+  #     # - name: Normalize 
+  #     #   mean: [0.485, 0.456, 0.406] # ImageNet mean
+  #     #   std: [0.229, 0.224, 0.225] # ImageNet std
+
+  #   shape: [3, 256, 256] # For pytorch compatibility, move the color channel to the first dimension
+  #   source_entry_names:
+  #     - robot0_wrist_camera
+
+  third_person_camera:
+    name: third_person_camera
+    data_type: image
+    length: ${workspace.model.image_length}
+    normalizer: identity
+    augmentation: 
+      - name: RandomCrop
+        size: [224, 224]
+        p: 0.3
+      - name: Resize
+        size: [256, 256]
+        antialias: True
+      - name: ColorJitter
+        brightness: 0.3
+        contrast: 0.4
+        saturation: 0.5
+        hue: 0.08
+        p: 0.3
+    shape: [3, 256, 256]
+    source_entry_names:
+      - third_person_camera
+
+  # zoom_in_camera:
+  #   data_type: image
+  #   length: 1
+  #   normalizer: identity
+  #   augmentation:
+  #     - name: RandomCrop
+  #       size: [224, 224]
+  #       p: 0.3
+  #     - name: Resize
+  #       size: [256, 256]
+  #       antialias: True
+  #   shape: [3, 256, 256]
+  #   source_entry_names:
+  #     - zoom_in_camera
+      
+  robot0_10d:
+    name: robot0_10d
+    data_type: low_dim
+    length: ${workspace.model.proprio_length}
+    normalizer: range
+    augmentation: # To avoid the model overfitting to extremely small movements
+      - name: RandomGaussianNoise
+        std: 0.005
+        p: 0.5
+    shape: [10]
+    source_entry_names:
+      - robot0_tcp_xyz_wxyz
+      - robot0_gripper_width
+
+  action0_10d:
+    name: action0_10d
+    data_type: low_dim
+    length: ${workspace.model.action_length}
+    normalizer: range
+    augmentation: []
+    shape: [10]
+    source_entry_names:
+      - action0_tcp_xyz_wxyz
+      - action0_gripper_width
+
+
+dataloader_cfg:
+  batch_size: ${cond:${in:${policy_name},midhist,longhist},16,64}
+  num_workers: 24
+  shuffle: True
+  pin_memory: True
+  persistent_workers: True
+  prefetch_factor: 1 # Each worker will prefetch 1 batch
+
+statistics_data_path: "" # For memory gate training which needs an additional file

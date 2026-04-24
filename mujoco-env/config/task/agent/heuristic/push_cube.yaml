@@ -1,0 +1,28 @@
+_target_: env.modules.agents.heuristic_agents.push_cube_agent.PushCubeAgent
+
+# Base class parameters
+robot_num: 1  
+position_speed_m_per_s: 0.2
+rotation_speed_rad_per_s: 0.8
+gripper_speed_m_per_s: 0.05
+seed: 0
+agent_update_freq_hz: 10
+
+
+# Push Cube specific parameters
+push_vels_m_per_s: [0.3]
+push_start_pose_xyz_wxyz: [0.1, -0.73, 0.365, 0.707, -0.707, 0.0, 0.0] 
+# the edge of the cube is at y=-0.725
+push_end_y_m: -0.50
+slow_down_end_y_m: -0.43
+draw_back_end_y_m: -0.80
+draw_back_1_duration_s: 2.0
+draw_back_2_duration_s: 5.0
+# The above two should add up to ${task.env.cube_reset_waiting_time}
+reset_duration_s: 1.0
+gripper_width_m: [0.08]
+object_stable_threshold_m_per_s: 0.0001
+stop_trying_tolerance_m: 0.02
+# If the cube is closer than this, will keep the current pushing velocity, 
+# no matter whether there are closer velocities after the current velocity.
+target_y_m: 0.15

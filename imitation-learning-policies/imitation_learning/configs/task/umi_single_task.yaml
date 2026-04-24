@@ -1,0 +1,13 @@
+defaults:
+  - _self_
+
+workspace:
+  train_dataset:
+    name: umi_single_traj
+    robot_num: 1
+
+  trainer:
+    rollout_every: 0
+    keep_saving_keywords: []
+
+dataset_type: umi

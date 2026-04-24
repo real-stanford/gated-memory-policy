@@ -1,0 +1,63 @@
+defaults:
+  - env/table_bin_1robot_1object
+  - base_task
+  - _self_
+
+_target_: env.modules.tasks.pick_and_place_back.PickAndPlaceBack
+
+name: pick_and_place_back
+successful_reward: 1.0
+
+
+viewer_cam_init_kwargs:
+  # lookat: [0.0134, 0.2676, 0.2883]
+  # distance: 0.7574743130183821
+  # azimuth: -0.46745303626036594
+  # elevation: -36.24455123537691
+  lookat: [0.695, -0.4147, -0.0857]
+  distance: 2.266939058501615
+  azimuth: -61.46469465648841
+  elevation: -30.190839694656542
+
+
+env:
+  judge:
+    _target_: env.modules.judges.pick_and_place_back_judge.PickAndPlaceBackJudge
+    lift_height_threshold: 0.15
+    place_height_threshold: 0.05
+    tcp_object_distance_threshold: 0.08
+    prolong_after_success_s: 3.0
+    time_limit_s: 20.0
+
+
+
+robot_init_tcp_poses_candidates_xyz_wxyz: # Make sure all the quaternions has positive w (the fourth element should be positive)
+  - - [0.4136, 0.2628, 0.5221, 0.225, -0.676, -0.6708, 0.206]
+    - [0.4438, 0.2666, 0.4132, 0.3246, -0.6367, -0.6352, 0.2927]
+    - [0.4185, 0.4309, 0.456, 0.1999, -0.5255, -0.773, 0.2939]
+    - [0.4273, 0.133, 0.4703, 0.3145, -0.7819, -0.5137, 0.161]
+    - [0.2849, 0.1544, 0.4887, 0.2302, -0.7901, -0.5653, 0.0569]
+    - [0.269, 0.24, 0.5317, 0.1382, -0.6863, -0.712, 0.055]
+    - [0.285, 0.4063, 0.5404, 0.0899, -0.5445, -0.8214, 0.144]
+    - [0.2218, 0.2796, 0.567, 0.0966, -0.7149, -0.69, 0.0596]
+
+robot_init_gripper_width_candidates: # First dimension if for each robot; 
+# Second dimension is for different candidates
+# Third dimension is the dof of the gripper (reserve for future use)
+  - - [0.08] # min
+    - [0.10] # max
+
+shuffle_bin_material: false
+object_init_bin_ids: []
+delta_bin_id: 0
+delay_init_bin_materials: false
+
+init_bin_materials: [0,0,0,0]
+final_bin_materials: [0,0,0,0]
+
+agent:
+  policy_obs_keys:
+    - "robot0_tcp_xyz_wxyz"
+    - "robot0_gripper_width"
+    - "third_person_camera"
+  robot_num: 1

@@ -1,0 +1,9 @@
+defaults:
+  - policy_agent
+  - _self_
+
+_target_: real_env.agents.longhist_policy_agent.LongHistPolicyAgent
+
+record_action_len_per_traj: 0
+record_image_len_per_traj: 1
+aggregated_traj_num: 15

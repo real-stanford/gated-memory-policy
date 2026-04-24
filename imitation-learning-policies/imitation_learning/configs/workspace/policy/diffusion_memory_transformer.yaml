@@ -1,0 +1,22 @@
+defaults:
+  - diffusion_transformer
+  - cond_encoder@history_img_feature_encoder: multi_token_encoder
+  - override denoising_network@denoising_network_partial: memory_transformer
+  - _self_
+
+_target_: imitation_learning.policies.history_denoising_policy.HistoryDenoisingPolicy
+
+skip_memory: False
+history_mask_max_prob: 0.0
+memory_gate: null # To disable memory gate
+history_img_feature_encoder:
+  image_encoder_partial:
+    feature_aggregation: 'map' # Specific to SigLIP2
+  name: history_img_feature_encoder
+  data_entry_names: ${workspace.train_dataset.image_keys}
+
+train_history_action_noise_level: last_step
+eval_history_action_noise_level: last_step
+history_action_num_per_chunk: 8
+
+action_no_error_range: [4, 8]

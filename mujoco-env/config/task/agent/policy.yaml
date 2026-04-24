@@ -1,0 +1,14 @@
+_target_: env.modules.agents.manipulation_policy_agent.ManipulationPolicyAgent
+
+policy_server_address: ???
+robot_num: ???
+agent_update_freq_hz: 10
+action_prediction_horizon: 16
+action_execution_horizon: 8
+obs_history_len: 1
+action_history_len: 1
+image_obs_frames_ids: [-1]
+proprio_obs_frames_ids: [-1]
+policy_obs_keys: ???
+use_relative_pose: false
+smoothen_action_weight: 0.0

@@ -1,0 +1,17 @@
+defaults:
+  - diffusion_memory_transformer
+  - common@memory_gate: memory_gate
+  - _self_
+
+denoising_network_partial:
+  record_data_entries:
+    - memory_gate_val
+  binary_gating: false
+
+memory_gate:
+  image_encoder:
+    _target_: imitation_learning.models.encoders.image_encoders.SharedSiglipImageEncoder
+    frozen: false
+  freeze_mlp: false
+  ckpt_path: "" # Do not load weights
+

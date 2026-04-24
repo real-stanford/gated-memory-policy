@@ -1,0 +1,30 @@
+### WARNING: This is not tested ever since the transformer policy works
+
+defaults:
+  - cond_encoder@global_cond_encoder: single_token_encoder
+  - action_decoder/action_only_1d_decoder
+  - denoising_network@denoising_network_partial: conditional_unet_1d
+  - _self_
+
+_target_: imitation_learning.policies.diffusion_policy.DiffusionPolicy
+noise_scheduler:
+  _target_: diffusers.schedulers.scheduling_ddim.DDIMScheduler
+  num_train_timesteps: 48 # To make it divisible by inference_step_num (16)
+  beta_start: 0.0001
+  beta_end: 0.02
+  beta_schedule: squaredcos_cap_v2 # Important. This is the best found by Cheng
+  clip_sample: True
+  set_alpha_to_one: True
+  steps_offset: 0
+  prediction_type: epsilon # or sample
+
+local_cond_encoder: null
+global_cond_encoder:
+  data_entry_names: 
+    - robot0_camera_images
+inference_step_num: 16
+seed: ${seed}
+device: ${device}
+input_perturb: 0.0
+
+

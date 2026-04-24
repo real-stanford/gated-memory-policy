@@ -1,0 +1,28 @@
+defaults:
+  - mikasa_single_traj
+  - _self_
+
+_target_: imitation_learning.datasets.mujoco_dataset.MujocoMultiTrajDataset
+
+traj_num: ${eval:"${workspace.model.denoising_network_partial.max_history_len}+1"}
+traj_interval_min: 8
+traj_interval_max: 8
+
+
+dataloader_cfg:
+  batch_size: ${cond:${in:${policy_name},large},2,4}
+  # For finetuning including the non-history modules. The actual batch size is 4 * 12 (traj_num) = 48
+
+
+split_dataloader_cfg:
+  batch_size: ${cond:${in:${policy_name},large},24,64}
+  num_workers: 24
+  pin_memory: true
+  persistent_workers: true
+  shuffle: false
+  prefetch_factor: 1
+
+index_pool_size_per_episode: 100
+starting_percentile_max: ???
+
+repeat_dataset_num: 1 # How many times to repeat the dataset. Multi-traj dataset is comsumed much slower than single-traj dataset.

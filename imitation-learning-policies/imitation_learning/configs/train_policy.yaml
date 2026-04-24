@@ -1,0 +1,20 @@
+# This is the outmost config file that is directly filled by the command arguments
+# Please pass all arguments with + prefix
+
+# policy_name: ???
+# task_name: ???
+
+# project_name: ???
+# logger_project_name: ???
+# run_name: ???
+# train_server_name: ???
+
+workspace:
+  name: ${task_name}_${policy_name}
+  # train_dataset:
+  #   name: ???
+  #   root_dir: ???
+  #   compressed_dir: ???
+  #   normalizer_dir: ???
+
+# Other overrides from the run command will be added here

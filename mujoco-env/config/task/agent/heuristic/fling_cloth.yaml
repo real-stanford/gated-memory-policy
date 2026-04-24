@@ -1,0 +1,45 @@
+_target_: env.modules.agents.heuristic_agents.fling_cloth_agent.FlingClothAgent
+
+# Base class parameters
+robot_num: 2
+position_speed_m_per_s: 0.2
+rotation_speed_rad_per_s: 0.8
+gripper_speed_m_per_s: 0.05
+seed: 0
+agent_update_freq_hz: 10
+
+# Fling Cloth specific parameters
+reset_poses_xyz_wxyz: ${task.env.robot_init_tcp_poses_xyz_wxyz}
+
+fling_waypoints_z_bias: 0.0
+
+fling_waypoints_xz:
+  - [0.49, 0.23]
+  - [0.50, 0.35]
+  - [0.65, 0.50]
+  - [0.05, 0.60]
+  - [0.07, 0.50] # Critical?
+  - [0.10, 0.40]
+  - [0.2, 0.23]
+
+fling_timestamp_intervals_s: [1.0, 1.0, 1.0, 0.3, 0.2, 0.3]
+fling_speed_scaling_mask: [false, true, true, false, false, false]
+
+# fling_timestamp_intervals_s: [1.0, 2.0, 1.0, 0.4, 0.3]
+# fling_speed_scaling_mask: [false, true, true, false, false]
+
+
+# fling_waypoints_xz:
+#   - [0.49, 0.23]
+#   - [0.50, 0.35]
+#   - [0.65, 0.50]
+#   - [0.05, 0.60]
+#   - [0.10, 0.40]
+#   - [0.2, 0.23]
+
+# fling_timestamp_intervals_s: [1.0, 1.5, 1.0, 0.4, 0.3]
+# fling_speed_scaling_mask: [false, false, true, false, false]
+
+
+pause_before_fling_s: 0.2
+pause_before_reset_s: 1.6

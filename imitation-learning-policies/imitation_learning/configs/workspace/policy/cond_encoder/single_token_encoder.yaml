@@ -1,0 +1,24 @@
+_target_: imitation_learning.models.encoders.single_token_encoder.SingleTokenEncoder
+
+data_meta: ${workspace.train_dataset.output_data_meta}
+data_entry_names: ???
+
+
+image_encoder_partial:
+  # _target_: imitation_learning.models.encoders.image_encoders.CLIPImageEncoder
+  # model_name: 'openai/clip-vit-base-patch16' # For transformers
+  # model_name: 'facebook/dinov2-base'
+  # use_lora: true
+  # _target_: imitation_learning.models.encoders.image_encoders.TimmImageEncoder
+  # model_name: 'vit_base_patch16_clip_224.openai' # For TIMM
+  _target_: imitation_learning.models.encoders.image_encoders.SharedSiglipImageEncoder
+  model_name: 'google/siglip2-base-patch16-256'
+  _partial_: True
+  feature_aggregation: 'map' # Specific to SigLIP2
+  image_meta: ???
+  pretrained: True
+  frozen: false
+  apply_image_norm: True
+  individual_forward: False
+
+name: single_token_encoder

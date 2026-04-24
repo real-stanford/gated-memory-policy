@@ -1,0 +1,18 @@
+defaults:
+  - diffusion_transformer
+  - _self_
+
+global_cond_encoder:
+  image_encoder_partial:
+    feature_aggregation: 'map'
+
+denoising_network_partial:
+  global_cond_pos_emb_type: 1d
+
+shared_model_manager:
+  cache_size: 20
+
+proprio_indices: ${range:-120,1}
+proprio_length: 121
+image_indices: ${range:-120,1,8}  
+image_length: 16

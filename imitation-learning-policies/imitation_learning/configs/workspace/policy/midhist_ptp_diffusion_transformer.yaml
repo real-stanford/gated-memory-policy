@@ -1,0 +1,6 @@
+defaults:
+  - midhist_cross_attn_diffusion_transformer
+  - _self_
+
+action_indices: ${range:-16,16}
+action_length: 32

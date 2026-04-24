@@ -1,0 +1,12 @@
+
+_target_: env.modules.envs.robomimic_env.RobomimicEnv
+
+# robot_num should be parsed from env_kwargs
+robot_obs_low_dim_keys:
+  - eef_pos
+  - eef_quat
+  - gripper_qpos
+
+# RGB keys should be parsed from env_kwargs (different for different tasks)
+
+env_meta: ???

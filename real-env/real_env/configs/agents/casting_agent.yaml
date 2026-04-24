@@ -1,0 +1,70 @@
+defaults:
+  - heuristic_agent
+  - _self_
+
+_target_: real_env.agents.heuristic_agents.casting_agent.CastingAgent
+
+name: DragCube
+agent_update_freq_hz: 15
+
+reset_to_back_xyz_wxyz:
+  - -0.6
+  - -0.75
+  - 0.25
+  - 0.374
+  - 0.6
+  - 0.6
+  - -0.374
+
+drag_start_pose_xyz_wxyz:
+  - -0.6
+  - -0.37
+  - 0.015
+  - 0.2
+  - 0.678
+  - 0.678
+  - -0.2
+
+drag_end_xyz_wxyz:
+  - -0.6
+  - 0.58
+  - 0.015
+  - 0.2
+  - -0.678
+  - -0.678
+  - -0.2
+
+slow_down_end_xyz_wxyz:
+  - -0.6
+  - 0.63
+  - 0.015
+  - 0.2
+  - -0.678
+  - -0.678
+  - -0.2
+
+lift_arm_up_xyz_wxyz:
+  - -0.6
+  - 0.63
+  - 0.24
+  - 0.374
+  - -0.6
+  - -0.6
+  - -0.374
+  # - 0.2
+  # - -0.678
+  # - -0.678
+  # - -0.2
+
+drag_vels_m_per_s: ???
+final_speed_step_num: 6
+
+initial_reset_duration_s: 5.0
+reset_to_back_duration_s: 4.5
+waiting_after_resetting_to_back_duration_s: 0.0
+reset_to_start_duration_s: 4.5
+waiting_before_dragging_duration_s: 0.
+waiting_until_sliding_stop_duration_s: 0.0
+lift_arm_up_duration_s: 2.5
+waiting_after_lifting_duration_s: 0.
+gripper_width_m: 0.0

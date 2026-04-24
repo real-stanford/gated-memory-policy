@@ -1,0 +1,23 @@
+defaults:
+  - policy/common@model: memory_gate
+  # - dataset # Should be loaded in `config_utils.compose_hydra_config`
+  - trainer/memory_gate_trainer
+  - ema_model@ema_partial: ema_model
+  - _self_
+
+_target_: imitation_learning.workspaces.base_workspace.BaseWorkspace
+
+logging_cfg:
+  project: ${logger_project_name}
+  resume: False
+  mode: online
+  name: ${run_name} # Should be set in the outmost config file
+  tags: ["${project_name}", "${task_name}", "memory_gate"]
+  id: null
+  group: null
+
+trainer:
+  output_dir: data/${task_name}/${date_str}/${time_str}_${run_name}
+
+cfg_str_unresolved: null
+name: ${task_name}_memory_gate

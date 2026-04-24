@@ -1,0 +1,6 @@
+server:
+  _target_: env.modules.remote_env_server.RemoteEnvServer
+  rollout_episode_num: 100
+  start_seed: 10000
+  policy_server_address: ???
+  env_num: 20

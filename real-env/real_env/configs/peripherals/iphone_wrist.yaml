@@ -1,0 +1,33 @@
+_target_: real_env.peripherals.iphone.iPhone
+
+name: right_wrist_camera_0
+server_endpoint: tcp://localhost:16700
+# iphone_udid: 00008130-000A742008A1401C
+# iphone_udid: 00008130-001A201A11D3803A
+iphone_udid: ""
+
+camera_configs:
+  main:
+    type: rgb
+    peertalk_port: 5555
+    width: 960
+    height: 720
+    fps: 30
+  ultrawide:
+    type: rgb
+    peertalk_port: 5556
+    width: 960
+    height: 720
+    fps: 30
+  depth:
+    type: depth
+    peertalk_port: 5557
+    width: 320
+    height: 240
+    fps: 30
+
+camera_latency_s: 0.08
+display_resolution_WH:
+  - 320
+  - 240
+logger_endpoint: tcp://localhost:55555

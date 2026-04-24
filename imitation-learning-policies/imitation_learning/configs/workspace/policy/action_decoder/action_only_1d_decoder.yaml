@@ -1,0 +1,5 @@
+_target_: imitation_learning.models.decoders.action_only_1d_decoder.ActionOnly1DDecoder
+
+data_meta: ${workspace.train_dataset.output_data_meta} 
+
+data_entry_names: ???

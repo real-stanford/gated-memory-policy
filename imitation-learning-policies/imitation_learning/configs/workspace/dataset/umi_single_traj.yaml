@@ -1,0 +1,138 @@
+_target_: imitation_learning.datasets.umi_dataset.UMISingleTrajDataset
+
+root_dir: ???
+name: ???
+compressed_dir: "" # Should be filled if need to extract the dataset from a compressed file
+
+robot_num: 1
+down_sample_steps: 3 # 60 fps -> 20 fps
+
+include_episode_num: -1 # To specify how many episodes to include. -1 means using all episodes.
+include_episode_indices: [] # If not empty, will override used_episode_ratio
+used_episode_ratio: 0.99 # How many episodes are used for training
+random_split_dataset: true # If false, will not use random split for the dataset
+history_padding_length: ${workspace.model.history_padding_length}
+future_padding_length: ${workspace.model.action_length}
+starting_percentile_max: 1.0
+starting_percentile_min: 0.0
+index_pool_size_per_episode: -1 # Use all indices
+seed: ${seed}
+use_relative_pose: true # UMI uses relative pose
+use_relative_gripper_width: false
+normalizer_sample_num: -1 # Use all data
+normalizer_dir: ???
+repeat_dataset_num: 5 # How many times to repeat the dataset. This will avoid the dataset being consumed too fast and the reload time being too long.
+
+
+image_keys: ["robot0_main_camera"]
+proprio_keys: ["robot0_10d"] # Should be overridden if there are multiple proprio keys
+action_keys: ["action0_10d"] # Should be overridden if there are multiple action keys
+
+apply_image_augmentation_in_cpu: true
+
+
+source_data_meta:
+  camera0_rgb:
+    name: camera0_rgb
+    include_indices: ${workspace.model.image_indices} 
+    shape: [224, 224, 3]
+
+  robot0_eef_pos:
+    name: robot0_eef_pos
+    include_indices: ${eval:"ListConfig(list(range(-${workspace.model.proprio_length}, ${workspace.model.action_length}+1)))"} 
+    # 1 frame into the past, 16 frames into the future. 0 is the current frame
+    # obs: relative pose of [-1] wrt to [0]
+    # action: relative pose of [1:${workspace.model.action_length}+1] wrt to [0]
+    # include_indices: ${eval:"ListConfig(list(range(0, ${workspace.model.action_length}+1)))"}
+    shape: [3]
+
+  robot0_eef_rot_axis_angle:
+    name: robot0_eef_rot_axis_angle
+    include_indices: ${eval:"ListConfig(list(range(-${workspace.model.proprio_length}, ${workspace.model.action_length}+1)))"}
+    # include_indices: ${eval:"ListConfig(list(range(0, ${workspace.model.action_length}+1)))"}
+    shape: [3]
+
+  robot0_gripper_width:
+    name: robot0_gripper_width
+    # include_indices: ${eval:"ListConfig(list(range(-${workspace.model.proprio_length}, ${workspace.model.action_length}+1)))"}
+    # Also use relative width so no need to calculate relative values
+    # obs: relative width of [-1] wrt to [0]
+    # action: relative width of [1:${workspace.model.action_length}+1] wrt to [0]
+
+    include_indices: ${eval:"ListConfig(list(range(-${workspace.model.proprio_length}+1, ${workspace.model.action_length}+1)))"} # Not include the current gripper width
+    # Only use absolute width so no need to calculate relative values
+    # obs: absolute width of [0]
+    # action: absolute width of [1:${workspace.model.action_length}+1]
+    shape: [1]
+
+
+  
+output_data_meta:
+  robot0_main_camera:
+    name: robot0_main_camera
+    data_type: image
+    length: ${workspace.model.image_length}
+    normalizer: identity
+    augmentation: 
+      - name: RandomCrop
+        size: [208, 208]
+        p: 0.3
+      - name: Resize
+        size: [256, 256]
+        antialias: True
+      - name: ColorJitter
+        brightness: 0.3
+        contrast: 0.4
+        saturation: 0.5
+        hue: 0.08
+        p: 0.5
+      - name: RandomSharpness
+        sharpness: 2
+        p: 0.3
+      - name: RandomAutoContrast
+        p: 0.3
+      - name: RandomGrayscale
+        p: 0.1
+      - name: RandomGaussianBlur
+        kernel_size: [5, 5]
+        sigma: [0.1, 2.0]
+        p: 0.2
+    shape: [3, 256, 256]
+    source_entry_names:
+      - camera0_rgb
+
+  robot0_10d:
+    name: robot0_10d
+    data_type: low_dim
+    length: ${workspace.model.proprio_length}
+    normalizer: range_clip
+    augmentation: 
+      - name: RandomGaussianNoise
+        std: [0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0.002, 0] # Do not randomize gripper width since it is much more stable
+        p: 0.3
+    shape: [10]
+    source_entry_names:
+      - robot0_eef_pos
+      - robot0_eef_rot_axis_angle
+      - robot0_gripper_width
+
+  action0_10d:
+    name: action0_10d
+    data_type: low_dim
+    length: ${workspace.model.action_length}
+    normalizer: range_clip
+    augmentation: []
+    shape: [10]
+    source_entry_names:
+      - robot0_eef_pos
+      - robot0_eef_rot_axis_angle
+      - robot0_gripper_width
+  
+
+dataloader_cfg:
+  batch_size: 128
+  num_workers: 24
+  shuffle: True
+  pin_memory: True
+  persistent_workers: True
+  prefetch_factor: 1 # Each worker will prefetch 1 batch

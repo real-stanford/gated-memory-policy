@@ -1,0 +1,11 @@
+defaults:
+  - iphumi_ur5
+  - _self_
+
+project_name: memory
+task_name: place_back
+
+run_name: ${now:%Y-%m-%d}_ur5_<POLICY_NAME>_epoch<POLICY_EPOCH>
+
+policy_agent:
+  agent_update_freq_hz: 15

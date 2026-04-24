@@ -1,0 +1,4 @@
+defaults:
+  - diffusion_transformer
+  - override common@noise_scheduler: flow_noise_scheduler
+  - _self_

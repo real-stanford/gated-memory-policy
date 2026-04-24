@@ -1,0 +1,8 @@
+defaults:
+  - _self_
+
+workspace:
+  train_dataset:
+    repeat_dataset_num: 3
+
+dataset_type: umi_multi_task

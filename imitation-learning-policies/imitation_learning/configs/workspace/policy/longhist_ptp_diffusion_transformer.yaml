@@ -1,0 +1,6 @@
+defaults:
+  - longhist_cross_attn_diffusion_transformer
+  - _self_
+
+action_indices: ${range:-120,16}
+action_length: 136

@@ -1,0 +1,41 @@
+defaults:
+  - workspace/memory_gate_workspace
+  - _self_
+
+seed: 0
+device: cuda
+
+# Use - instead of _ so the yaml reader will not interpret the string as a number
+date_str: ${now:%Y-%m-%d}
+time_str: ${now:%H-%M-%S}
+
+# Should be overridden by `train_memory_gate.yaml`
+project_name: ???
+logger_project_name: ???
+run_name: ???
+task_name: ???
+policy_name: ???
+train_server_name: ???
+
+hydra:
+  run:
+    dir: ${workspace.trainer.output_dir}
+
+base_ckpt_path: null
+base_ckpt_cfg_str: ""
+
+attach_vscode_debugger: false
+
+workspace:
+
+  model:
+    image_length: 1
+    image_indices: [0]
+    proprio_length: 1
+    proprio_indices: [0]
+    proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+    action_length: 1
+    action_indices: ${range:0,${workspace.model.action_length}}
+    image_encoder:
+      image_meta: ${workspace.model.memory_gate.image_encoder.image_meta}
+    

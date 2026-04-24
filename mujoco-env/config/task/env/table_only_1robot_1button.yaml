@@ -1,0 +1,42 @@
+defaults:
+  - scene@scene: table_only
+  - object@button: button
+  - robot@ur5e: ur5e_wsg50_finray
+  - _self_
+
+_target_: env.modules.envs.table_only_1robot_1button.TableOnly1Robot1Button
+
+robots:
+  - ${task.env.ur5e}
+robot_base_poses_xyz_wxyz:
+  - [0.9, 0.0, 0.2, 0.0, 0.0, 0.0, 1.0]
+
+robot_init_tcp_poses_xyz_wxyz: # Will be overwritten by episode config
+  - [0.228, 0.1459, 0.4331, 0.0002, 0.7071, 0.7071, 0.0000]
+
+robot_init_tcp_poses_candidates_xyz_wxyz: # Make sure all the quaternions has positive w (the fourth element should be positive)
+  - - [0.4136, 0.2628, 0.5221, 0.225, -0.676, -0.6708, 0.206]
+    - [0.4438, 0.2666, 0.4132, 0.3246, -0.6367, -0.6352, 0.2927]
+    - [0.4185, 0.4309, 0.456, 0.1999, -0.5255, -0.773, 0.2939]
+    - [0.4273, 0.133, 0.4703, 0.3145, -0.7819, -0.5137, 0.161]
+    - [0.2849, 0.1544, 0.4887, 0.2302, -0.7901, -0.5653, 0.0569]
+    - [0.269, 0.24, 0.5317, 0.1382, -0.6863, -0.712, 0.055]
+    - [0.285, 0.4063, 0.5404, 0.0899, -0.5445, -0.8214, 0.144]
+    - [0.2218, 0.2796, 0.567, 0.0966, -0.7149, -0.69, 0.0596]
+
+
+robot_init_gripper_width: # Will be overwritten by episode config
+  - [0.0] # Gripper is kept closed in this task
+
+robot_init_gripper_width_candidates: # First dimension if for each robot; 
+# Second dimension is for different candidates
+# Third dimension is the dof of the gripper (reserve for future use)
+  - - [0.00] # min
+    - [0.00] # max
+
+objects:
+  - ${task.env.button}
+object_poses_xyz_wxyz: # Will be overwritten by episode config
+  - [0.10, 0.0, 0.23, 1.0, 0.0, 0.0, 0.0]
+
+control_freq: 10

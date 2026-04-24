@@ -1,0 +1,15 @@
+_target_: real_env.agents.heuristic_agent.HeuristicAgent
+
+name: ???
+robot_num: 1
+agent_update_freq_hz: ???
+action_prediction_horizon: 1
+action_execution_horizon: 1
+proprio_history_len: 1
+action_history_len: 1
+image_history_len: 0
+
+position_speed_m_per_s: 0.2
+rotation_speed_rad_per_s: 0.8
+gripper_speed_m_per_s: 0.05
+seed: 14

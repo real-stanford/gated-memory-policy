@@ -1,0 +1,13 @@
+_target_: env.modules.objects.button.Button
+
+name: button
+mjcf_path: env/assets/objects/button.xml
+
+radius: 0.015
+center_height: 0.00 # The height of the button center from the table
+
+rotation_angle_range:
+  - 0.0
+  - 0.0
+
+press_height_threshold: 0.01 # The height of the button center from the table when the button is pressed

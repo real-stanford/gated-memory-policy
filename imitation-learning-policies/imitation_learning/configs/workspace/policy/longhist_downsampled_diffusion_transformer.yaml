@@ -1,0 +1,7 @@
+defaults:
+  - longhist_cross_attn_diffusion_transformer
+  - _self_
+
+proprio_indices: ${range:-120,1,8}
+proprio_length: 16
+

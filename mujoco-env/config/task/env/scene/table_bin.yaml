@@ -1,0 +1,22 @@
+_target_: env.modules.scenes.table_bin.TableBin
+
+name: table_bin
+
+mjcf_path: env/assets/scenes/table_bin.xml
+
+cameras:
+  third_person_camera: [256, 256]
+
+bin_center_xyz:
+  - 0.1
+  - 0.28
+  - 0.2
+
+bin_size_xy:
+  - 0.2
+  - 0.25
+
+bin_border_width: 0.01
+bin_border_clearance: 0.05
+bin_height_tolerance: 0.1 # Should be decreased to 0.01
+

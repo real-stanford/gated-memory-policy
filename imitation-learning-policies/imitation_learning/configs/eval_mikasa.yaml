@@ -1,0 +1,22 @@
+defaults:
+  - _self_
+
+evaluator:
+  _target_: scripts.serve_mikasa_checkpoints.MikasaCheckpointEvaluator
+
+  # orchestrator
+  ckpt_root_dir: ./data/checkpoints/mikasa # Use your own path here
+  port: 18765
+  timeout: 1200
+  resume_from: null  # set to eval_output/<timestr> to resume a failed run
+
+  # eval config (sent to env server via robotmq per checkpoint)
+  eval:
+    num_envs: 20
+    num_eval_steps: null
+    num_eval_episodes: 100
+    capture_video: false
+    seed: 1000
+    abs_joint_pos: true
+    direct_qpos: false
+    train_seeds_only: null

@@ -1,0 +1,79 @@
+
+defaults:
+  - _self_
+
+dataset_type: robomimic
+
+workspace:
+  train_dataset:
+    # Frame num stats: avg:  480.4, std:  88.9, max: 744, min: 332
+    name: robomimic_tool_hang_ph
+    robot_num: 1
+    # traj_num: 90
+    traj_num: 64
+
+    image_keys:
+      - robot0_eye_in_hand_image
+      - sideview_image
+
+    source_data_meta:
+      robot0_eye_in_hand_image:
+        name: robot0_eye_in_hand_image
+        include_indices: ${workspace.model.image_indices}
+        shape: [256, 256, 3]
+      sideview_image:
+        name: sideview_image
+        include_indices: ${workspace.model.image_indices}
+        shape: [256, 256, 3]
+
+    output_data_meta:
+      sideview_image:
+        name: sideview_image
+        data_type: image
+        length: ${workspace.model.image_length}
+        normalizer: identity
+        augmentation: 
+          - name: RandomCrop
+            size: [224, 224]
+            p: 0.5
+          - name: Resize
+            size: [256, 256]
+            antialias: True
+          - name: ColorJitter
+            brightness: 0.3
+            contrast: 0.4
+            saturation: 0.5
+            hue: 0.08
+            p: 0.2
+        shape: [3, 256, 256]
+        source_entry_names:
+          - sideview_image
+      robot0_eye_in_hand_image:
+        name: robot0_eye_in_hand_image
+        data_type: image
+        length: ${workspace.model.image_length}
+        normalizer: identity
+        augmentation: 
+          - name: RandomCrop
+            size: [224, 224]
+            p: 0.3
+          - name: Resize
+            size: [256, 256]
+            antialias: True
+          - name: ColorJitter
+            brightness: 0.3
+            contrast: 0.4
+            saturation: 0.5
+            hue: 0.08
+            p: 0.3
+        shape: [3, 256, 256]
+        source_entry_names:
+          - robot0_eye_in_hand_image
+
+  model:
+
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.sideview_image}
+      proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+

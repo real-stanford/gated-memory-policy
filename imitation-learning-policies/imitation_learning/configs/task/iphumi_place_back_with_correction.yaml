@@ -1,0 +1,33 @@
+defaults:
+  - _self_
+
+dataset_type: iphumi_multi_task
+
+workspace:
+
+  train_dataset:
+    name: iphumi_place_back_with_correction
+    dataset_names: pick-and-place-back-all,pick-and-place-back-correction-all,pick-and-place-back-and-correction
+    robot_num: 1
+    traj_num: 72
+    dataloader_cfg:
+      batch_size: ${cond:${in:${policy_name},large,longhist},1,2}
+
+  model:
+
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.robot0_main_camera}
+      # proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+      proprio_meta: null
+        # image_meta: ${workspace.train_dataset.output_data_meta.robot0_main_camera}
+
+    denoising_network_partial:
+      max_history_len: 56
+    
+        
+  trainer:
+    rollout_every: 0
+    keep_saving_keywords: []
+
+  

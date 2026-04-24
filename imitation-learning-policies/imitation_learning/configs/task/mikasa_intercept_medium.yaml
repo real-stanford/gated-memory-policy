@@ -1,0 +1,23 @@
+defaults:
+  - mikasa_remember_color_3
+  - _self_
+
+# Episode length: 90
+
+workspace:
+
+  train_dataset:
+    name: InterceptMedium-v0
+    traj_interval_min: 8
+    traj_interval_max: 8
+  #   # episode_starting_idx_max: 1 # Always start from the first step
+    dataloader_cfg:
+      batch_size: 8
+  model:
+    denoising_network_partial:
+      # max_history_len: 45
+    #   max_history_len: 23
+      max_history_len: 12
+    action_length: 8
+    history_action_num_per_chunk: 8
+

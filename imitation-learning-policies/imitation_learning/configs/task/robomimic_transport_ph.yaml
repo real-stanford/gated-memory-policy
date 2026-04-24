@@ -1,0 +1,196 @@
+
+defaults:
+  - _self_
+
+dataset_type: robomimic
+
+workspace:
+  train_dataset:
+    # Frame num stats: avg:  468.5, std:  53.9, max: 714, min: 373
+
+    dataloader_cfg:
+      batch_size: ${cond:${in:${policy_name},memory,gated},2,${cond:${in:${policy_name},midhist,longhist},8,64}}
+  
+    repeat_dataset_num: ${cond:${in:${policy_name},memory,gated},1,${cond:${in:${policy_name},midhist,longhist},2,10}} # For midhist and longhist, the training time is too long
+
+    name: robomimic_transport_ph
+    robot_num: 2
+    traj_num: 40 # To to fit 5090 GPU memory when finetuning vit (32GB for batch size 1)
+    # traj_num: 52 # To to fit H100 GPU memory when finetuning vit (75GB for batch size 2)
+
+    image_keys:
+      - shouldercamera0_image
+      - robot0_eye_in_hand_image
+      - shouldercamera1_image
+      - robot1_eye_in_hand_image
+
+    proprio_keys:
+      - robot0_10d
+      - robot1_10d
+
+    action_keys:
+      - action0_10d
+      - action1_10d
+
+    source_data_meta:
+      robot0_eye_in_hand_image:
+        name: robot0_eye_in_hand_image
+        include_indices: ${workspace.model.image_indices}
+        shape: [256, 256, 3]
+
+      shouldercamera0_image:
+        name: shouldercamera0_image
+        include_indices: ${workspace.model.image_indices}
+        shape: [256, 256, 3]
+
+      robot1_eef_pos:
+        name: robot1_eef_pos
+        include_indices: ${workspace.model.proprio_indices}
+        shape: [3]
+
+      robot1_eef_quat:
+        name: robot1_eef_quat
+        include_indices: ${workspace.model.proprio_indices}
+        shape: [4]
+
+      robot1_gripper_qpos:
+        name: robot1_gripper_qpos
+        include_indices: ${workspace.model.proprio_indices}
+        shape: [2]
+      
+      robot1_eye_in_hand_image:
+        name: robot1_eye_in_hand_image
+        include_indices: ${workspace.model.image_indices}
+        shape: [256, 256, 3]
+
+      shouldercamera1_image:
+        name: shouldercamera1_image
+        include_indices: ${workspace.model.image_indices}
+        shape: [256, 256, 3]
+
+      abs_actions:
+        name: abs_actions
+        include_indices: ${workspace.model.action_indices}
+        shape: [14]
+
+    output_data_meta:
+
+      robot1_10d:
+        name: robot1_10d
+        data_type: low_dim
+        length: ${workspace.model.proprio_length}
+        normalizer: range
+        augmentation: []
+        shape: [10]
+        source_entry_names:
+          - robot1_eef_pos
+          - robot1_eef_quat
+          - robot1_gripper_qpos
+
+
+      shouldercamera0_image:
+        name: shouldercamera0_image
+        data_type: image
+        length: ${workspace.model.image_length}
+        normalizer: identity
+        augmentation: 
+          - name: RandomCrop
+            size: [224, 224]
+            p: 0.3
+          - name: Resize
+            size: [256, 256]
+            antialias: True
+          - name: ColorJitter
+            brightness: 0.3
+            contrast: 0.4
+            saturation: 0.5
+            hue: 0.08
+            p: 0.3
+        shape: [3, 256, 256]
+        source_entry_names:
+          - shouldercamera0_image
+      robot0_eye_in_hand_image:
+        name: robot0_eye_in_hand_image
+        data_type: image
+        length: ${workspace.model.image_length}
+        normalizer: identity
+        augmentation: 
+          - name: RandomCrop
+            size: [224, 224]
+            p: 0.3
+          - name: Resize
+            size: [256, 256]
+            antialias: True
+          - name: ColorJitter
+            brightness: 0.3
+            contrast: 0.4
+            saturation: 0.5
+            hue: 0.08
+            p: 0.3
+        shape: [3, 256, 256]
+        source_entry_names:
+          - robot0_eye_in_hand_image
+
+      shouldercamera1_image:
+        name: shouldercamera1_image
+        data_type: image
+        length: ${workspace.model.image_length}
+        normalizer: identity
+        augmentation: 
+          - name: RandomCrop
+            size: [224, 224]
+            p: 0.3
+          - name: Resize
+            size: [256, 256]
+            antialias: True
+          - name: ColorJitter
+            brightness: 0.3
+            contrast: 0.4
+            saturation: 0.5
+            hue: 0.08
+            p: 0.3
+        shape: [3, 256, 256]
+        source_entry_names:
+          - shouldercamera1_image
+
+      robot1_eye_in_hand_image:
+        name: robot1_eye_in_hand_image
+        data_type: image
+        length: ${workspace.model.image_length}
+        normalizer: identity
+        augmentation: 
+          - name: RandomCrop
+            size: [224, 224]
+            p: 0.3
+          - name: Resize
+            size: [256, 256]
+            antialias: True
+          - name: ColorJitter
+            brightness: 0.3
+            contrast: 0.4
+            saturation: 0.5
+            hue: 0.08
+            p: 0.3
+        shape: [3, 256, 256]
+        source_entry_names:
+          - robot1_eye_in_hand_image
+
+      action1_10d:
+        name: action1_10d
+        data_type: low_dim
+        length: ${workspace.model.action_length}
+        normalizer: range
+        augmentation: []
+        shape: [10]
+        source_entry_names:
+          - abs_actions
+
+  model:
+    memory_gate:
+      image_encoder:
+        image_meta: ${workspace.train_dataset.output_data_meta.shouldercamera0_image}
+      proprio_meta: ${workspace.train_dataset.output_data_meta.robot0_10d}
+
+  trainer:
+    skip_saving_keywords: []
+    keep_saving_keywords: []

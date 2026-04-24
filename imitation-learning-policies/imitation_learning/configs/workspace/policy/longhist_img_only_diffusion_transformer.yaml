@@ -1,0 +1,21 @@
+defaults:
+  - longhist_cross_attn_diffusion_transformer
+  - _self_
+
+# proprio_indices: ${range:0,1} # Should be equivalent to [0], but [0] doesn't work ...
+# proprio_length: 1
+global_cond_encoder:
+  data_entry_names: ${workspace.train_dataset.image_keys}
+
+# # For even longer history:
+# image_indices: ${range:-360,1,8}
+# image_length: 46
+# history_padding_length: 360
+
+
+# For longer history (for flip and place back)
+proprio_indices: []
+proprio_length: 0
+image_indices: ${range:-400,1,8}  
+image_length: 51
+history_padding_length: 400

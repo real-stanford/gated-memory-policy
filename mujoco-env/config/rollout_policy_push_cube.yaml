@@ -1,0 +1,13 @@
+defaults:
+  - rollout_policy
+
+task:
+  env:
+    scene:
+      cameras:
+        # visualization_camera: [640, 480]
+        visualization_camera: [1440, 640] # For cube pushing
+
+
+episode_num: 1
+start_seed: 10003

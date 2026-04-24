@@ -1,0 +1,50 @@
+defaults:
+  - cond_encoder@global_cond_encoder: single_token_encoder
+  - cond_encoder@local_cond_encoder: single_token_encoder
+  - action_decoder/action_only_1d_decoder
+  - _self_
+
+_target_: imitation_learning.policies.rnn_policy.BCRNNPolicy
+
+local_cond_encoder:
+  name: local_cond_encoder
+  data_entry_names: ${workspace.train_dataset.proprio_keys}
+  image_encoder_partial:
+    feature_aggregation: "map"
+
+global_cond_encoder:
+  name: global_cond_encoder
+  data_entry_names: ${workspace.train_dataset.image_keys}
+  image_encoder_partial:
+    feature_aggregation: "map"
+
+shared_model_manager:
+  _target_: imitation_learning.models.encoders.image_encoders.SharedModelManager
+  cache_size: 10
+
+action_decoder:
+  data_entry_names: ${workspace.train_dataset.action_keys}
+
+seed: ${seed}
+device: ${device}
+
+rnn_hidden_dim: 400
+rnn_num_layers: 2
+rnn_type: "LSTM"
+mlp_layer_dims: [1024, 512]
+open_loop: false
+detach_rnn_state: false
+image_indices: [0]
+image_length: 1
+
+# Proprio at every action timestep so the RNN gets per-step state input
+proprio_indices: [0]
+proprio_length: 1
+
+action_length: 8
+action_indices: ${range:0,${workspace.model.action_length}}
+
+history_padding_length: 0
+action_no_error_range: [0, 0]
+denoising_network_partial:
+  max_history_len: 16 # For compatibility with other memory policies. Not actually used
