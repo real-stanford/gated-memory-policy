@@ -43,7 +43,7 @@ pip install -e . # Install real-env as a editable package so that all paths can 
 
 ### iPhone
 
-1. Follow [iPhUMI] [TODO] to install the iPhone app and print the iPhone mount.
+1. Follow [iPhUMI] [Will be released soon] to install the iPhone app and print the iPhone mount.
 2. Connect the iphone to the computer through a (at least) **USB3.0** cable. `conda activate real-env` then run `iphone wrist`. If all 3 videos pop up (main, ultrawide, depth), connection is successful. The iPhone UDID will be printed in the terminal.
 3. To connect to multiple iPhones, record the UDID of each iphone and update the `iphone_udid` in `real_env/configs/peripherals/iphone_wrist.yaml` for wrist view and `real_env/configs/peripherals/iphone_third.yaml` for third person view.
 
