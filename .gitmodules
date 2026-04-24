@@ -3,4 +3,4 @@
 	url = https://github.com/ARISE-Initiative/robomimic
 [submodule "mujoco-env/third_party/robosuite"]
 	path = mujoco-env/third_party/robosuite
-	url = https://github.com/ARISE-Initiative/robosuite.git
+	url = https://github.com/ARISE-Initiative/robosuite
