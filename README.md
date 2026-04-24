@@ -6,7 +6,8 @@ Stanford University
 
 [Project Website](https://gated-memory-policy.github.io/), [ArXiv](https://arxiv.org/abs/2604.18933), [Models](https://huggingface.co/yihuai-gao/gated-memory-policy), [Datasets](https://huggingface.co/datasets/yihuai-gao/gated-memory-policy)
 
-This repository contains source code for gated memory policy training, simulation data collection and evaluation (Memimic & RoboMimic and Mikasa-Robo benchmarks), and real-world robot deployment.
+This repository contains source code for gated memory policy training, simulation data collection and evaluation (Memimic & RoboMimic and Mikasa-Robo benchmarks), and **real-world robot deployment with in-the-wild checkpoints**.
+
 We've organized our code as separate folders so you can easily take any component you need and plug it into your own system.
 
 | Repo                                                           | What it does                                                                    |
