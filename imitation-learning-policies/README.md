@@ -25,6 +25,8 @@ Install the Hugging Face CLI:
 curl -LsSf https://hf.co/cli/install.sh | bash
 ```
 
+If you have installed `huggingface_hub` in your current python environment and there are errors running the following download commands, please either update the package through `pip install -U huggingface_hub` or deactivate the environment.
+
 ```bash
 mkdir -p data/checkpoints
 
