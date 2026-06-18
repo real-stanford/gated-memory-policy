@@ -25,9 +25,10 @@ Install the Hugging Face CLI:
 curl -LsSf https://hf.co/cli/install.sh | bash
 ```
 
-If you have installed `huggingface_hub` in your current python environment and there are errors running the following download commands, please either update the package through `pip install -U huggingface_hub` or deactivate the environment.
+If you have installed `huggingface_hub` in your current python environment and there are errors running the following download commands, please either deactivate the current environment or update the package through `pip install -U huggingface_hub`. Please do not update the package in the `imitation` conda environment, as it is incompatible with other packages (e.g. `transformers`).
 
 ```bash
+conda deactivate
 mkdir -p data/checkpoints
 
 # Download all checkpoints
