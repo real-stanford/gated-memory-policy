@@ -148,7 +148,9 @@ def main(cfg) -> None:
     end_time = time.time()
     print(f"Time taken: {end_time - start_time:.2f} seconds")
 
-    assert isinstance(task.agent, ManipulationPolicyParallelAgent)
+    assert isinstance(task.agent, ManipulationPolicyParallelAgent) or isinstance(
+        task.agent, RobomimicPolicyParallelAgent
+    )
     export_file_path = task.agent.export_recorded_data(f"rollout_{time_str}")
 
     # Convert rollout data to video

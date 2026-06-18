@@ -4,6 +4,7 @@ import numpy as np
 import numpy.typing as npt
 from robotmq import RMQClient, deserialize, serialize
 from transforms3d.quaternions import quat2axangle
+from loguru import logger
 
 from env.modules.agents.base_parallel_agent import BaseParallelAgent
 from env.modules.common import data_buffer_type, robot_data_type
@@ -136,3 +137,12 @@ class RobomimicPolicyParallelAgent(BaseParallelAgent):
             "policy_reset", serialize(True)
         )
         assert raw_results, "Failed to reset policy agent"
+
+    def export_recorded_data(self, file_name: str):
+        export_file_path = deserialize(
+            self.policy_client.request_with_data(
+                "export_recorded_data", serialize(file_name)
+            )
+        )
+        logger.info(f"Exported recorded data to {export_file_path}")
+        return export_file_path
