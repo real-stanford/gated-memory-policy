@@ -13,7 +13,7 @@ We've organized our code as separate folders so you can easily take any componen
 | Repo                                                           | What it does                                                                    |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | [`imitation-learning-policies/`](imitation-learning-policies/) | Policy training and inference serving                                           |
-| [`real-env/`](real-env/)                                       | Real-world robot deployment (Natively support UR5, ARX5)                        |
+| [`real-env/`](https://github.com/real-stanford/real-env/)                                       | Real-world robot deployment (Natively support UR5, ARX5)                        |
 | [`mujoco-env/`](mujoco-env/)                                   | MuJoCo sim, data collection and evaluation for the **Memimic (Ours)** and [**RoboMimic**](https://github.com/ARISE-Initiative/robomimic) benchmarks        |
 | [`mikasa-robo-env/`](mikasa-robo-env/)                         | ManiSkill sim, data collection and evaluation for the [**Mikasa-Robo**](https://github.com/CognitiveAISystems/MIKASA-Robo) benchmark |
 
@@ -32,20 +32,20 @@ We've organized our code as separate folders so you can easily take any componen
         - [Simulation](./imitation-learning-policies/README.md#simulation)
         - [Real-world](./imitation-learning-policies/README.md#real-world)
     - [Misc.](./imitation-learning-policies/README.md#misc)
-- [Real-World Deployment](./real-env/README.md)
-    - [Python Environment](./real-env/README.md#python-environment)
-    - [Hardware Setup](./real-env/README.md#hardware-setup)
-        - [UR5 or UR5e](./real-env/README.md#ur5-or-ur5e)
-        - [WSG50 with iPhUMI](./real-env/README.md#wsg50-with-iphumi)
-        - [ARX5 with iPhUMI](./real-env/README.md#arx5-with-iphumi)
-        - [iPhone](./real-env/README.md#iphone)
-        - [Webcam / GoPro](./real-env/README.md#webcam--gopro)
-        - [SpaceMouse](./real-env/README.md#spacemouse)
-    - [System Overview](./real-env/README.md#system-overview)
-        - [Architecture](./real-env/README.md#architecture)
-        - [Customized Packages](./real-env/README.md#customized-packages)
-        - [Config Aggregation](./real-env/README.md#config-aggregation)
-    - [Run Experiments](./real-env/README.md#run-experiments)
+- [Real-World Deployment](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md)
+    - [Python Environment](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#python-environment)
+    - [Hardware Setup](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#hardware-setup)
+        - [UR5 or UR5e](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#ur5-or-ur5e)
+        - [WSG50 with iPhUMI](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#wsg50-with-iphumi)
+        - [ARX5 with iPhUMI](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#arx5-with-iphumi)
+        - [iPhone](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#iphone)
+        - [Webcam / GoPro](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#webcam--gopro)
+        - [SpaceMouse](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#spacemouse)
+    - [System Overview](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#system-overview)
+        - [Architecture](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#architecture)
+        - [Customized Packages](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#customized-packages)
+        - [Config Aggregation](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#config-aggregation)
+    - [Run Experiments](https://github.com/real-stanford/real-env/tree/gated-memory-policy/README.md#run-experiments)
 - [Memimic & RoboMimic Benchmark](./mujoco-env/README.md)
     - [Installation](./mujoco-env/README.md#installation)
     - [Usage](./mujoco-env/README.md#usage)
