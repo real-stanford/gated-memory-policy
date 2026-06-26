@@ -4,3 +4,6 @@
 [submodule "mujoco-env/third_party/robosuite"]
 	path = mujoco-env/third_party/robosuite
 	url = https://github.com/ARISE-Initiative/robosuite
+[submodule "real-env"]
+	path = real-env
+	url = git@github.com:real-stanford/real-env.git

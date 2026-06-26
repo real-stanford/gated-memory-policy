@@ -18,6 +18,8 @@ We've organized our code as separate folders so you can easily take any componen
 | [`mikasa-robo-env/`](mikasa-robo-env/)                         | ManiSkill sim, data collection and evaluation for the [**Mikasa-Robo**](https://github.com/CognitiveAISystems/MIKASA-Robo) benchmark |
 
 
+> **Note:** We use the submodule `real-env` to manage the real-world robot deployment codebase (shared with other projects). Please use `git submodule update --init --recursive` to initialize the submodule.
+
 ## Table of Contents
 
 - [Policy Training and Serving](./imitation-learning-policies/README.md)
