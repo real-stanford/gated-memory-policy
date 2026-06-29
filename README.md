@@ -6,11 +6,12 @@ Stanford University
 
 [Project Website](https://gated-memory-policy.github.io/), [ArXiv](https://arxiv.org/abs/2604.18933), [Models](https://huggingface.co/yihuai-gao/gated-memory-policy), [Datasets](https://huggingface.co/datasets/yihuai-gao/gated-memory-policy)
 
-This repository contains source code for gated memory policy training, simulation data collection and evaluation (Memimic & RoboMimic and Mikasa-Robo benchmarks), and **real-world robot deployment with in-the-wild checkpoints**.
+This repository contains source code for gated memory policy training, simulation data collection and evaluation (Memimic & RoboMimic and Mikasa-Robo benchmarks), and **real-world robot deployment with [in-the-wild checkpoints](https://huggingface.co/yihuai-gao/gated-memory-policy/blob/main/real/iphumi_place_back_with_correction_diffusion_memory.ckpt)**.
 
-**Major Update (Jun 29th, 2026): [iPhUMI](https://github.com/real-stanford/iPhUMI) is released! Please feel free to try the cup placement policy in-the-wild!** For the real-world deployment codebase, please checkout the [gated-memory-policy](https://github.com/real-stanford/real-env/tree/gated-memory-policy) branch in case there are compatibility issues
+**Major Update (Jun 29th, 2026): [iPhUMI](https://github.com/real-stanford/iPhUMI) is released! Please feel free to try the cup placement policy in-the-wild!** 
 
-We've organized our code as separate folders so you can easily take any component you need and plug it into your own system.
+- Please refer to the [policy codebase](imitation-learning-policies/) for instructions to set up the conda environment and serve the [in-the-wild checkpoint](https://huggingface.co/yihuai-gao/gated-memory-policy/blob/main/real/iphumi_place_back_with_correction_diffusion_memory.ckpt).
+- For the real-world deployment codebase, please checkout the [gated-memory-policy](https://github.com/real-stanford/real-env/tree/gated-memory-policy) branch in case there are compatibility issues.
 
 | Repo                                                           | What it does                                                                    |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------- |
