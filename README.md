@@ -8,6 +8,8 @@ Stanford University
 
 This repository contains source code for gated memory policy training, simulation data collection and evaluation (Memimic & RoboMimic and Mikasa-Robo benchmarks), and **real-world robot deployment with in-the-wild checkpoints**.
 
+**Major Update (Jun 29th, 2026): [iPhUMI](https://github.com/real-stanford/iPhUMI) is released! Please feel free to try the cup placement policy in-the-wild!** For the real-world deployment codebase, please checkout the [gated-memory-policy](https://github.com/real-stanford/real-env/tree/gated-memory-policy) branch in case there are compatibility issues
+
 We've organized our code as separate folders so you can easily take any component you need and plug it into your own system.
 
 | Repo                                                           | What it does                                                                    |
@@ -68,7 +70,7 @@ We've organized our code as separate folders so you can easily take any componen
 
 We are grateful to the following amazing open-sourced projects that made this work possible:
 
-- [iPhUMI](TODO) and [UMI](https://github.com/real-stanford/universal_manipulation_interface) for the portable data collection system.
+- [iPhUMI](https://github.com/real-stanford/iPhUMI) and [UMI](https://github.com/real-stanford/universal_manipulation_interface) for the portable data collection system.
 - [Diffusion Policy](https://github.com/real-stanford/diffusion_policy) and [RDT-1B](https://github.com/thu-ml/RoboticsDiffusionTransformer) for the policy model and training framework.
 - [RoboMimic](https://github.com/ARISE-Initiative/robomimic), [RoboSuite](https://github.com/ARISE-Initiative/robosuite), [Mikasa-Robo](https://github.com/CognitiveAISystems/MIKASA-Robo), and [ManiSkill](https://github.com/haosulab/maniskill) for the simulation benchmarks.
 
