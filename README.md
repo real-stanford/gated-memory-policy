@@ -15,7 +15,7 @@ We've organized our code as separate folders so you can easily take any componen
 | Repo                                                           | What it does                                                                    |
 | -------------------------------------------------------------- | ------------------------------------------------------------------------------- |
 | [`imitation-learning-policies/`](imitation-learning-policies/) | Policy training and inference serving                                           |
-| [`real-env/`](https://github.com/real-stanford/real-env/)                                       | Real-world robot deployment (Natively support UR5, ARX5)                        |
+| [`real-env/`](https://github.com/real-stanford/real-env/tree/gated-memory-policy)                                       | Real-world robot deployment (Natively support UR5, ARX5)                        |
 | [`mujoco-env/`](mujoco-env/)                                   | MuJoCo sim, data collection and evaluation for the **Memimic (Ours)** and [**RoboMimic**](https://github.com/ARISE-Initiative/robomimic) benchmarks        |
 | [`mikasa-robo-env/`](mikasa-robo-env/)                         | ManiSkill sim, data collection and evaluation for the [**Mikasa-Robo**](https://github.com/CognitiveAISystems/MIKASA-Robo) benchmark |
 
