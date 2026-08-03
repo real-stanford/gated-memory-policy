@@ -10,6 +10,13 @@ This repository contains source code for gated memory policy training, simulatio
 
 **Major Update (Jun 29th, 2026): [iPhUMI](https://github.com/real-stanford/iPhUMI) is released, huge shout out to [Austin Patel](https://austinapatel.github.io/)! Please feel free to try the cup placement policy in-the-wild!** 
 
+- Tarined cups purchase list
+    - https://a.co/d/0cbmGF33
+    - https://a.co/d/0ipbq8zH
+    - https://a.co/d/01BH9ghQ
+    - https://a.co/d/0gHmcf6r
+    - https://a.co/d/0h9Vaisz
+
 - Please refer to the [policy codebase](imitation-learning-policies/) for instructions to set up the conda environment and serve the [in-the-wild checkpoint](https://huggingface.co/yihuai-gao/gated-memory-policy/blob/main/real/iphumi_place_back_with_correction_diffusion_memory.ckpt).
 - For the real-world deployment codebase, please checkout the [gated-memory-policy](https://github.com/real-stanford/real-env/tree/gated-memory-policy) branch in case there are compatibility issues.
 
