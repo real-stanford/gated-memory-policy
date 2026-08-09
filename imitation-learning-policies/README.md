@@ -128,8 +128,8 @@ shell_scripts/train_real.sh 0,1    # multi-GPU
 This repository is developed during the following [research project](https://github.com/real-stanford/gated-memory-policy). If you find it useful, please cite our corresponding paper:
 ```latex
 @misc{gao2026gatedmemorypolicy,
-  title         = {Gated Memory Policy},
-  author        = {Yihuai Gao and Jinyun Liu and Shuang Li and Shuran Song},
+  title         = {Gated Memory Policy: In-Context Memorization and Adaptation},
+  author        = {Yihuai Gao and Jeff Jinyun Liu and Shuang Li and Shuran Song},
   year          = {2026},
   eprint        = {2604.18933},
   archivePrefix = {arXiv},
