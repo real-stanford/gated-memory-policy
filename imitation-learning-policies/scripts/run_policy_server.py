@@ -3,18 +3,22 @@ import numpy as np
 import hydra
 from imitation_learning.envs.policy_server import PolicyServer
 from imitation_learning.utils.config_utils import compose_hydra_config
+from imitation_learning.utils.device_utils import get_default_device
 
 
 @click.command()
 @click.option("--server_endpoint", type=str, default="tcp://0.0.0.0:18765")
-@click.option("--device", type=str, default="cuda")
+@click.option("--device", type=str, default=None, help="cuda, xpu or cpu (default: auto-detect)")
 @click.option("--ckpt_path", type=str, default="")
 @click.option("--task_name", type=str, default="")
 @click.option("--policy_name", type=str, default="")
 @click.option("--server_name", type=str, default="localhost")
 @click.option("--record_history_attention", type=bool, default=False)
-def main(server_endpoint: str, device: str, ckpt_path: str, task_name: str, policy_name: str, server_name: str, record_history_attention: bool):
+def main(server_endpoint: str, device: str | None, ckpt_path: str, task_name: str, policy_name: str, server_name: str, record_history_attention: bool):
     np.set_printoptions(threshold=np.inf, precision=3)
+    if device is None:
+        device = str(get_default_device())
+    print(f"Using device: {device}")
     server = PolicyServer(server_endpoint, device, wait_ckpt_writing_time_s=20)
     if ckpt_path:
         if task_name and policy_name:

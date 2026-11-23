@@ -25,6 +25,18 @@ from robot_utils.pose_utils import convert_10d_to_batch, convert_batch_to_10d
 from hydra.core.global_hydra import GlobalHydra
 from imitation_learning.utils.config_utils import remove_keys_from_config
 
+
+def set_policy_device(policy_cfg: DictConfig, device: torch.device) -> None:
+    """Checkpoints store the training device (e.g. cuda). Build the policy on the serving device instead."""
+    if "device" in policy_cfg:
+        policy_cfg["device"] = str(device)
+    model_cfg = policy_cfg["workspace"]["model"]
+    if "device" in model_cfg:
+        model_cfg["device"] = str(device)
+    if "memory_gate" in model_cfg and model_cfg["memory_gate"] is not None and "device" in model_cfg["memory_gate"]:
+        model_cfg["memory_gate"]["device"] = str(device)
+
+
 class PolicyServer:
     def __init__(
         self,
@@ -163,6 +175,7 @@ class PolicyServer:
 
         # self.policy_cfg["workspace"]["model"]["noise_scheduler"]["inference_step_num"] = 12
 
+        set_policy_device(self.policy_cfg, self.device)
         self.policy = hydra.utils.instantiate(self.policy_cfg["workspace"]["model"])
         assert isinstance(self.policy, BasePolicy), "Policy must be a BasePolicy"
 
@@ -201,6 +214,7 @@ class PolicyServer:
 
         self.robot_num = cast(int, self.policy_cfg["workspace"]["train_dataset"]["robot_num"])
 
+        set_policy_device(self.policy_cfg, self.device)
         self.policy = hydra.utils.instantiate(self.policy_cfg["workspace"]["model"])
         assert self.policy is not None, "Policy must be instantiated"
         self.policy.load_state_dict(ckpt["model_state_dict"])
@@ -488,6 +502,9 @@ class PolicyServer:
                 if self.device.type == "cuda":
                     torch.cuda.empty_cache()
                     torch.cuda.synchronize(self.device)
+                elif self.device.type == "xpu":
+                    torch.xpu.empty_cache()
+                    torch.xpu.synchronize(self.device)
                 print(f"Rollout done. {rollout_result} Waiting for new checkpoint")
 
             elif topic == "export_recorded_data":
