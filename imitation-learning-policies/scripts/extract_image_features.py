@@ -137,7 +137,12 @@ def override_vit_to_ckpt(vit_model_path: str, ckpt_path: str):
 @click.option("--device", type=str, default=None, help="Device (default: auto-detect)")
 def main(data_dir: str, ckpt_path: str, batch_size: int, device: str):
     if device is None:
-        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        elif hasattr(torch, "xpu") and torch.xpu.is_available():
+            device = torch.device("xpu")
+        else:
+            device = torch.device("cpu")
     else:
         device = torch.device(device)
     print(f"Using device: {device}")

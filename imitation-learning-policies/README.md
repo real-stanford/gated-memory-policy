@@ -18,6 +18,25 @@ conda activate imitation
 pip install --pre torch torchvision torchaudio torchcodec --index-url https://download.pytorch.org/whl/nightly/cu128 --force-reinstall
 ```
 
+### Run on Intel GPU (XPU)
+
+Policy serving (inference) also runs on Intel GPUs through the PyTorch XPU backend. Install PyTorch for XPU and the serving dependencies in a fresh environment (`requirements-xpu.txt` lists the packages from `env.yaml` that serving needs, without PyTorch):
+
+```bash
+python3 -m venv .venv-xpu
+source .venv-xpu/bin/activate
+pip install torch torchvision --index-url https://download.pytorch.org/whl/xpu
+pip install -r requirements-xpu.txt
+```
+
+Then serve a checkpoint (see [Download Checkpoints and Datasets](#download-checkpoints-and-datasets)) on the XPU:
+
+```bash
+PYTHONPATH=. python scripts/run_policy_server.py --ckpt_path data/checkpoints/memmimic/push_cube_diffusion_gated.ckpt --server_endpoint tcp://localhost:18765 --device xpu
+```
+
+Without `--device`, the server picks CUDA, then XPU, then the CPU. Only inference is covered: the training scripts still expect CUDA (NCCL), and the Mikasa-Robo environment server runs the ManiSkill GPU simulation on CUDA.
+
 ## Download Checkpoints and Datasets
 
 Install the Hugging Face CLI:
