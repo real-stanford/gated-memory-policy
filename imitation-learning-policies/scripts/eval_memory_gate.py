@@ -12,12 +12,15 @@ from imitation_learning.trainers.memory_gate_trainer import MemoryGateTrainer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from imitation_learning.datasets.base_dataset import BaseDataset
+from imitation_learning.utils.device_utils import get_default_device
 from robot_utils.data_utils import dict_apply
 from robot_utils.torch_utils import torch_load, torch_save
 from omegaconf import OmegaConf
 import tqdm
 
-def eval_memory_gate(ckpt_path: str, episode_indices: list[int] | None = None, device: str = "cuda"):
+def eval_memory_gate(ckpt_path: str, episode_indices: list[int] | None = None, device: str | None = None):
+    if device is None:
+        device = str(get_default_device())
     assert os.path.exists(ckpt_path)
     assert len(episode_indices) > 0
 
